@@ -1,0 +1,195 @@
+---
+import { GraduationCap, Globe, Award, Users } from '@lucide/astro';
+
+const credenciales = [
+  { Icon: GraduationCap, texto: 'Profesor UAI' },
+  { Icon: Globe,         texto: '25+ años de experiencia' },
+  { Icon: Award,         texto: 'Ingeniero Civil Industrial PUC' },
+  { Icon: Users,         texto: 'Coach ejecutivo' },
+];
+---
+
+<section class="profesor" id="profesor">
+  <div class="profesor-inner">
+    <div class="foto-col fade-in">
+      <div class="foto-wrap">
+        <img
+          src="/images/francisco-valles.jpg"
+          alt="Francisco Vallés, profesor del taller COMBRIDGE"
+          loading="lazy"
+          width="320"
+          height="380"
+        />
+        <span class="badge">Socio Comtraining · Profesor UAI</span>
+      </div>
+    </div>
+
+    <div class="texto-col fade-in fade-in--delay">
+      <span class="eyebrow">El facilitador</span>
+      <h2 class="nombre">Francisco Vallés</h2>
+
+      <p class="descripcion">
+        Consultor y coach senior con más de 25 años de experiencia en diseño de
+        estrategias, mejoramiento de procesos y gestión del cambio organizacional
+        en empresas chilenas e internacionales.
+      </p>
+      <p class="descripcion">
+        Profesor de habilidades directivas en programas de postgrado de la
+        Universidad Adolfo Ibáñez (UAI) y UTEC Lima. Ingeniero Civil Industrial
+        PUC, Máster en PNL, Buenos Aires.
+      </p>
+
+      <div class="credenciales">
+        {credenciales.map(({ Icon, texto }) => (
+          <div class="cred-item">
+            <Icon size={20} aria-hidden="true" />
+            <span>{texto}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('#profesor .fade-in').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .profesor {
+    background-color: #f8fafc;
+    padding: 5rem 1.5rem;
+  }
+
+  .profesor-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .profesor-inner {
+      grid-template-columns: minmax(260px, 360px) 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* ── Foto ── */
+  .foto-col {
+    display: flex;
+    justify-content: center;
+  }
+
+  .foto-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 320px;
+  }
+
+  .foto-wrap img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+    display: block;
+  }
+
+  .badge {
+    position: absolute;
+    left: 50%;
+    bottom: -14px;
+    transform: translateX(-50%);
+    background-color: #3e5c76;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
+  }
+
+  /* ── Texto ── */
+  .texto-col {
+    text-align: left;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e63946;
+    margin-bottom: 0.75rem;
+  }
+
+  .nombre {
+    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.2;
+    margin: 0 0 1.25rem;
+  }
+
+  .descripcion {
+    font-size: 1rem;
+    color: #475569;
+    line-height: 1.7;
+    margin: 0 0 1rem;
+  }
+
+  /* ── Credenciales ── */
+  .credenciales {
+    margin-top: 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 1.25rem;
+  }
+
+  .cred-item {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #1f2937;
+    font-size: 0.9rem;
+    font-weight: 700;
+    line-height: 1.3;
+  }
+
+  .cred-item :global(svg) {
+    color: #3e5c76;
+    flex-shrink: 0;
+  }
+
+  /* ── Fade-in ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .fade-in--delay { transition-delay: 0.15s; }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

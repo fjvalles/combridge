@@ -1,0 +1,204 @@
+---
+---
+
+<section class="hero">
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <img
+      src="/images/logo-comtraining.png"
+      alt="Comtraining"
+      height="40"
+      width="auto"
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="hero-content">
+    <h1 class="hero-title">COMBRIDGE</h1>
+    <p class="hero-subtitle">
+      Construye un puente y logra lo imposible a través de la<br class="br-desktop" />
+      colaboración en equipo y la gestión de proyectos.
+    </p>
+    <div class="hero-ctas">
+      <a href="#agendar" class="btn btn-primary">Agenda una reunión</a>
+      <a
+        href="/combridge-ficha.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn btn-secondary"
+      >
+        Descarga la ficha técnica
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll arrow -->
+  <div class="scroll-arrow" aria-hidden="true">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+      url('/images/hero-puente.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: #fff;
+    padding: 1.5rem;
+    overflow: hidden;
+  }
+
+  /* Logo */
+  .logo-wrap {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .logo-wrap img {
+    height: 40px;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* Main content */
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.5rem;
+    max-width: 860px;
+    width: 100%;
+  }
+
+  .hero-title {
+    font-size: clamp(3rem, 10vw, 7rem);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 600px;
+    line-height: 1.65;
+  }
+
+  .br-desktop {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .br-desktop {
+      display: inline;
+    }
+  }
+
+  /* CTAs */
+  .hero-ctas {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    width: 100%;
+    max-width: 420px;
+    margin-top: 0.5rem;
+  }
+
+  @media (min-width: 540px) {
+    .hero-ctas {
+      flex-direction: row;
+      max-width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.875rem 1.75rem;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    background-color: #3e5c76;
+    color: #fff;
+    border: 2px solid #3e5c76;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    background-color: #2d4356;
+    border-color: #2d4356;
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus-visible {
+    background-color: #fff;
+    color: #1f2937;
+  }
+
+  /* Scroll arrow */
+  .scroll-arrow {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% {
+      transform: translateX(-50%) translateY(0);
+    }
+    50% {
+      transform: translateX(-50%) translateY(10px);
+    }
+  }
+</style>

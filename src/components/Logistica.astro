@@ -1,0 +1,149 @@
+---
+import { Clock, MapPin, Users, CheckCircle } from '@lucide/astro';
+
+const items = [
+  { Icon: Clock,       dato: '4 horas',          label: 'duración total del taller'      },
+  { Icon: MapPin,      dato: 'In-company',        label: 'vamos donde esté tu equipo'     },
+  { Icon: Users,       dato: 'Hasta 35 personas', label: 'por sesión'                     },
+  { Icon: CheckCircle, dato: 'Presencial',         label: 'modalidad'                      },
+];
+---
+
+<section class="logistica" id="logistica">
+  <div class="logistica-inner">
+    <div class="header fade-in">
+      <span class="eyebrow">Logística</span>
+      <h2 class="titulo">Todo lo que necesitas saber antes de agendar</h2>
+    </div>
+
+    <div class="grid fade-in fade-in--delay">
+      {items.map(({ Icon, dato, label }) => (
+        <div class="item">
+          <div class="item-icon">
+            <Icon size={36} aria-hidden="true" />
+          </div>
+          <span class="item-dato">{dato}</span>
+          <span class="item-label">{label}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('#logistica .fade-in').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .logistica {
+    background-color: #ffffff;
+    padding: 4rem 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .logistica-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e63946;
+    margin-bottom: 0.75rem;
+  }
+
+  .titulo {
+    font-size: clamp(1.4rem, 3.2vw, 2rem);
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.25;
+    margin: 0;
+  }
+
+  /* ── Grid ── */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  @media (min-width: 580px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  /* ── Item ── */
+  .item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .item-icon {
+    color: #3e5c76;
+    margin-bottom: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-dato {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.15;
+  }
+
+  .item-label {
+    font-size: 0.85rem;
+    color: #64748b;
+    line-height: 1.4;
+  }
+
+  /* ── Fade-in ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+
+  .fade-in--delay { transition-delay: 0.15s; }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

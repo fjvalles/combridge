@@ -1,0 +1,188 @@
+---
+---
+
+<section class="experiencia" id="experiencia">
+  <div class="experiencia-inner">
+
+    <!-- Texto -->
+    <div class="col-texto fade-in">
+      <span class="eyebrow">La experiencia</span>
+      <h2 class="titulo">Desafíate a ti mismo construyendo lo imposible</h2>
+      <p class="parrafo">
+        Desafíate a ti mismo construyendo un puente ajustado a estrictos estándares de
+        calidad. Rompe tus propias limitaciones y descubre que esta tarea monumental es
+        posible. Sorpréndete al ver cómo el liderazgo, la comunicación, la colaboración
+        en equipo y la gestión de proyectos se materializan en resultados tangibles,
+        construidos con tus propias manos.
+      </p>
+      <p class="parrafo">
+        Tu rol individual será clave, elevando tu potencial al máximo como parte de un
+        equipo. Las valiosas lecciones y el sentido de logro de esta experiencia
+        transformarán tu enfoque hacia los proyectos, acelerando la consecución de
+        objetivos cuando regreses a tu trabajo habitual.
+      </p>
+      <a href="#agendar" class="btn-cta">Agenda una reunión</a>
+    </div>
+
+    <!-- Fotos -->
+    <div class="col-fotos fade-in fade-in--delay">
+      <div class="foto-wrap foto-top">
+        <img
+          src="/images/equipo-mesa.jpg"
+          alt="Equipo planificando la construcción del puente"
+          class="foto"
+          width="600"
+          height="280"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+      <div class="foto-wrap foto-bottom">
+        <img
+          src="/images/equipo-grupal.jpg"
+          alt="Equipo completo junto al puente terminado"
+          class="foto"
+          width="600"
+          height="280"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll('#experiencia .fade-in').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .experiencia {
+    background-color: #ffffff;
+    padding: 5rem 1.5rem;
+  }
+
+  .experiencia-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 860px) {
+    .experiencia-inner {
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+    }
+  }
+
+  /* ── Fade-in ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+
+  .fade-in--delay {
+    transition-delay: 0.18s;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── Texto ── */
+  .eyebrow {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #e63946;
+    margin-bottom: 0.75rem;
+  }
+
+  .titulo {
+    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+    font-weight: 800;
+    color: #1f2937;
+    line-height: 1.2;
+    margin-bottom: 1.25rem;
+  }
+
+  .parrafo {
+    font-size: 1rem;
+    color: #374151;
+    line-height: 1.75;
+    margin-bottom: 1.1rem;
+  }
+
+  .btn-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.5rem;
+    padding: 0.875rem 1.75rem;
+    background-color: #3e5c76;
+    color: #fff;
+    border: 2px solid #3e5c76;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn-cta:hover,
+  .btn-cta:focus-visible {
+    background-color: #2d4356;
+    border-color: #2d4356;
+  }
+
+  /* ── Fotos ── */
+  .col-fotos {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .foto-wrap {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  }
+
+  .foto-bottom {
+    /* Offset visual para crear profundidad */
+    margin-left: 1.25rem;
+  }
+
+  @media (min-width: 860px) {
+    .foto-bottom {
+      margin-left: 1.5rem;
+    }
+  }
+
+  .foto {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    display: block;
+  }
+</style>

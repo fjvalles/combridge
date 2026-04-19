@@ -1,0 +1,172 @@
+---
+const stats = [
+  { value: 14,    suffix: '',    unit: 'metros',   desc: 'de puente construido'   },
+  { value: 9000,  suffix: '',    unit: 'piezas',   desc: 'ensambladas en obra'    },
+  { value: 90,    suffix: '',    unit: 'minutos',  desc: 'de construcción'        },
+  { value: 35,    suffix: '',    unit: 'personas', desc: 'máximo por taller'      },
+];
+
+function formatDisplay(n: number): string {
+  return n === 9000 ? '9.000' : String(n);
+}
+---
+
+<section class="numeros" aria-label="Cifras del taller">
+  <div class="numeros-grid">
+    {stats.map((s, i) => (
+      <div class="stat" data-target={s.value} data-index={i}>
+        <span class="stat-number" data-format={s.value === 9000 ? 'miles' : 'plain'}>
+          {formatDisplay(s.value)}
+        </span>
+        <span class="stat-unit">{s.unit}</span>
+        <span class="stat-desc">{s.desc}</span>
+      </div>
+    ))}
+  </div>
+</section>
+
+<script>
+  function formatNumber(n: number, format: string): string {
+    if (format === 'miles') {
+      return n.toLocaleString('es-CL');
+    }
+    return String(n);
+  }
+
+  function animateCount(el: Element) {
+    const numberEl = el.querySelector('.stat-number') as HTMLElement;
+    if (!numberEl) return;
+
+    const target = parseInt(el.getAttribute('data-target') || '0', 10);
+    const format = numberEl.getAttribute('data-format') || 'plain';
+    const duration = 1400;
+    const start = performance.now();
+
+    function tick(now: number) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(eased * target);
+      numberEl.textContent = formatNumber(current, format);
+      if (progress < 1) requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+
+  document.querySelectorAll('.stat').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .numeros {
+    background-color: #3e5c76;
+    padding: 5rem 1.5rem;
+  }
+
+  .numeros-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  /* 2×2 en tablet */
+  @media (min-width: 540px) {
+    .numeros-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem 0;
+    }
+
+    /* Separadores horizontales entre filas */
+    .stat:nth-child(n+3) {
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      padding-top: 2.5rem;
+    }
+
+    /* Separadores verticales entre columnas */
+    .stat:nth-child(odd) {
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+      padding-right: 2.5rem;
+    }
+    .stat:nth-child(even) {
+      padding-left: 2.5rem;
+    }
+  }
+
+  /* 4 columnas en desktop */
+  @media (min-width: 900px) {
+    .numeros-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+    }
+
+    .stat {
+      border-top: none !important;
+      padding-top: 0 !important;
+    }
+
+    .stat:nth-child(odd) {
+      border-right: none;
+      padding-right: 0;
+    }
+    .stat:nth-child(even) {
+      padding-left: 0;
+    }
+
+    /* Separadores verticales solo en desktop */
+    .stat:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.18);
+      padding-right: 2rem;
+    }
+    .stat:not(:first-child) {
+      padding-left: 2rem;
+    }
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.4rem;
+  }
+
+  .stat-number {
+    font-size: clamp(2.75rem, 6vw, 4.25rem);
+    font-weight: 800;
+    color: #ffffff;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-unit {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #e63946;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-top: 0.25rem;
+  }
+
+  .stat-desc {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.78);
+    margin-top: 0.15rem;
+    line-height: 1.4;
+  }
+</style>
