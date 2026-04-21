@@ -2,29 +2,29 @@
 import { Clock, MapPin, Users, CheckCircle } from '@lucide/astro';
 
 const items = [
-  { Icon: Clock,       dato: '4 horas',          label: 'duración total del taller'      },
-  { Icon: MapPin,      dato: 'In-company',        label: 'vamos donde esté tu equipo'     },
-  { Icon: Users,       dato: 'Hasta 35 personas', label: 'por sesión'                     },
-  { Icon: CheckCircle, dato: 'Presencial',         label: 'modalidad'                      },
+  { Icon: Clock, data: '4 horas', label: 'duración total del taller' },
+  { Icon: MapPin, data: 'In-company', label: 'vamos donde esté tu equipo' },
+  { Icon: Users, data: 'Hasta 35 personas', label: 'por sesión' },
+  { Icon: CheckCircle, data: 'Presencial', label: 'modalidad' },
 ];
 ---
 
-<section class="logistica" id="logistica">
-  <div class="logistica-inner">
-    <div class="header fade-in">
+<section class="section logistica" id="logistica">
+  <div class="shell logistica-shell reveal">
+    <div class="logistica-heading">
       <span class="eyebrow">Logística</span>
-      <h2 class="titulo">Todo lo que necesitas saber antes de agendar</h2>
+      <h2 class="section-title">Simple de implementar. Potente de vivir.</h2>
     </div>
 
-    <div class="grid fade-in fade-in--delay">
-      {items.map(({ Icon, dato, label }) => (
-        <div class="item">
-          <div class="item-icon">
-            <Icon size={36} aria-hidden="true" />
+    <div class="logistica-grid">
+      {items.map(({ Icon, data, label }) => (
+        <article class="logistica-item">
+          <div class="logistica-icon">
+            <Icon size={28} aria-hidden="true" />
           </div>
-          <span class="item-dato">{dato}</span>
-          <span class="item-label">{label}</span>
-        </div>
+          <strong>{data}</strong>
+          <span>{label}</span>
+        </article>
       ))}
     </div>
   </div>
@@ -40,110 +40,72 @@ const items = [
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.18 }
   );
 
-  document.querySelectorAll('#logistica .fade-in').forEach((el) => observer.observe(el));
+  document.querySelectorAll('#logistica .reveal').forEach((el) => observer.observe(el));
 </script>
 
 <style>
-  .logistica {
-    background-color: #ffffff;
-    padding: 4rem 1.5rem;
-    border-top: 1px solid #e2e8f0;
-    border-bottom: 1px solid #e2e8f0;
-  }
-
-  .logistica-inner {
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-
-  /* ── Header ── */
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
-  }
-
-  .eyebrow {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #e63946;
-    margin-bottom: 0.75rem;
-  }
-
-  .titulo {
-    font-size: clamp(1.4rem, 3.2vw, 2rem);
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.25;
-    margin: 0;
-  }
-
-  /* ── Grid ── */
-  .grid {
+  .logistica-shell {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
     gap: 2rem;
+    padding: 2rem;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.58));
+    box-shadow: var(--shadow-soft);
   }
 
-  @media (min-width: 580px) {
-    .grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .logistica-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
-  @media (min-width: 900px) {
-    .grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 1.5rem;
-    }
+  .logistica-item {
+    padding: 1.25rem;
+    border-radius: 24px;
+    background: rgba(20, 50, 74, 0.04);
   }
 
-  /* ── Item ── */
-  .item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-  }
-
-  .item-icon {
-    color: #3e5c76;
-    margin-bottom: 0.25rem;
-    display: flex;
+  .logistica-icon {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 16px;
+    background: #ffffff;
+    color: var(--color-brand);
+    box-shadow: var(--shadow-soft);
   }
 
-  .item-dato {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.15;
+  .logistica-item strong {
+    display: block;
+    margin-top: 1rem;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    letter-spacing: -0.05em;
   }
 
-  .item-label {
-    font-size: 0.85rem;
-    color: #64748b;
-    line-height: 1.4;
+  .logistica-item span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--color-text-soft);
+    line-height: 1.6;
   }
 
-  /* ── Fade-in ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
+  @media (max-width: 960px) {
+    .logistica-shell,
+    .logistica-grid {
+      grid-template-columns: 1fr;
+    }
   }
 
-  .fade-in--delay { transition-delay: 0.15s; }
-
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @media (max-width: 720px) {
+    .logistica-shell {
+      padding: 1.2rem;
+    }
   }
 </style>

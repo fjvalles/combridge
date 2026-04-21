@@ -1,26 +1,31 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
 import Hero from '../components/Hero.astro';
 import Numeros from '../components/Numeros.astro';
+import PruebaSocial from '../components/PruebaSocial.astro';
 import Experiencia from '../components/Experiencia.astro';
 import Aprendizajes from '../components/Aprendizajes.astro';
 import ParaQuien from '../components/ParaQuien.astro';
-import Industrias from '../components/Industrias.astro';
 import Profesor from '../components/Profesor.astro';
-import Logistica from '../components/Logistica.astro';
+import FAQ from '../components/FAQ.astro';
 import CTA from '../components/CTA.astro';
 import Footer from '../components/Footer.astro';
+import MobileCTA from '../components/MobileCTA.astro';
 ---
 
 <Layout>
+  <a id="top"></a>
+  <Header />
   <Hero />
   <Numeros />
   <Experiencia />
   <Aprendizajes />
   <ParaQuien />
-  <Industrias />
+  <PruebaSocial />
   <Profesor />
-  <Logistica />
+  <FAQ />
   <CTA />
   <Footer />
+  <MobileCTA />
 </Layout>

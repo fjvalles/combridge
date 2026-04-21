@@ -1,0 +1,120 @@
+---
+const faqs = [
+  {
+    q: '¿Cuánto espacio necesitamos para realizar el taller?',
+    a: 'Necesitamos un salón amplio de al menos 100 m² con mesas movibles. Podemos adaptarnos a la mayoría de auditorios y salas de capacitación corporativas. Lo coordinamos contigo antes del taller.',
+  },
+  {
+    q: '¿Cuánto cuesta y qué incluye?',
+    a: 'El valor depende del tamaño del grupo y la ubicación. Incluye diseño, materiales completos (las 9.000 piezas del puente), facilitación y un resumen con los aprendizajes clave del equipo. Te entregamos una propuesta concreta después de la reunión de 30 minutos.',
+  },
+  {
+    q: '¿Funciona con equipos que no se conocen entre sí?',
+    a: 'Sí. De hecho funciona especialmente bien en equipos nuevos, fusiones de áreas o procesos de transformación, porque acelera confianza, lenguaje común y coordinación en una sola sesión.',
+  },
+  {
+    q: '¿Qué tan físico es? ¿Hay requisitos especiales?',
+    a: 'Es una actividad de mesa, no deportiva. Cualquier persona puede participar. Si hay alguien con movilidad reducida u otra consideración, lo ajustamos sin problema.',
+  },
+  {
+    q: '¿En qué ciudades lo hacen?',
+    a: 'Principalmente en Chile (Santiago, regiones y faenas mineras). También hemos realizado el taller en Perú y podemos evaluar otros países de la región si la logística lo permite.',
+  },
+  {
+    q: '¿Qué se llevan los participantes al final?',
+    a: 'Una experiencia memorable, un lenguaje común sobre liderazgo y ejecución, y un informe con los patrones observados por el facilitador durante la sesión, útil para conversaciones posteriores del equipo.',
+  },
+];
+---
+
+<section class="section faq" id="faq">
+  <div class="shell">
+    <div class="section-intro faq-intro reveal">
+      <span class="eyebrow">Preguntas frecuentes</span>
+      <h2 class="section-title">Lo que suelen preguntarnos antes de agendar.</h2>
+    </div>
+
+    <div class="faq-list reveal">
+      {faqs.map((item, index) => (
+        <details class="faq-item" open={index === 0}>
+          <summary>
+            <span>{item.q}</span>
+            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <polyline points="6 9 12 15 18 9" />
+            </svg>
+          </summary>
+          <p>{item.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  document.querySelectorAll('#faq .reveal').forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .faq-intro {
+    max-width: min(980px, 100%);
+  }
+
+  .faq-list {
+    border-top: 1px solid var(--color-line);
+  }
+
+  .faq-item {
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .faq-item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1.4rem 0.25rem;
+    cursor: pointer;
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    line-height: 1.35;
+    list-style: none;
+    color: var(--color-text);
+  }
+
+  .faq-item summary:focus-visible {
+    border-radius: 16px;
+    background: rgba(20, 50, 74, 0.05);
+  }
+
+  .faq-item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-chevron {
+    flex-shrink: 0;
+    transition: transform 0.25s ease;
+    color: var(--color-accent);
+  }
+
+  .faq-item[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+
+  .faq-item p {
+    margin: 0 0 1.4rem;
+    padding-right: 2rem;
+    color: var(--color-text-soft);
+    line-height: 1.8;
+  }
+</style>

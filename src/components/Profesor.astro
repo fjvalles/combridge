@@ -1,51 +1,57 @@
 ---
-import { GraduationCap, Globe, Award, Users } from '@lucide/astro';
+import { GraduationCap, Globe, Award, Users } from "@lucide/astro";
 
-const credenciales = [
-  { Icon: GraduationCap, texto: 'Profesor UAI' },
-  { Icon: Globe,         texto: '25+ años de experiencia' },
-  { Icon: Award,         texto: 'Ingeniero Civil Industrial PUC' },
-  { Icon: Users,         texto: 'Coach ejecutivo' },
+const credentials = [
+  { Icon: GraduationCap, text: "Profesor UAI" },
+  { Icon: Globe, text: "25+ años de experiencia" },
+  { Icon: Award, text: "Ingeniero Civil Industrial PUC" },
+  { Icon: Users, text: "Coach ejecutivo" },
 ];
 ---
 
-<section class="profesor" id="profesor">
-  <div class="profesor-inner">
-    <div class="foto-col fade-in">
-      <div class="foto-wrap">
-        <img
-          src="/images/francisco-valles.jpg"
-          alt="Francisco Vallés, profesor del taller COMBRIDGE"
-          loading="lazy"
-          width="320"
-          height="380"
-        />
-        <span class="badge">Socio Comtraining · Profesor UAI</span>
+<section class="section profesor" id="profesor">
+  <div class="shell profesor-grid">
+    <div class="profesor-copy reveal">
+      <span class="eyebrow">El facilitador</span>
+      <h2 class="section-title">
+        Experiencia que se nota en sala.
+      </h2>
+      <p class="section-copy">
+        Francisco Vallés aporta algo más que facilitación: criterio para leer lo que pasa
+        en el equipo, conectar la experiencia con desafíos reales y convertirla en
+        aprendizajes aplicables.
+      </p>
+      <p class="section-copy">
+        Es consultor, coach ejecutivo y profesor de habilidades directivas, con más de 25
+        años de experiencia acompañando procesos de liderazgo, cambio y coordinación en
+        organizaciones complejas.
+      </p>
+
+      <div class="credentials">
+        {
+          credentials.map(({ Icon, text }) => (
+            <div class="credential">
+              <Icon size={18} aria-hidden="true" />
+              <span>{text}</span>
+            </div>
+          ))
+        }
       </div>
     </div>
 
-    <div class="texto-col fade-in fade-in--delay">
-      <span class="eyebrow">El facilitador</span>
-      <h2 class="nombre">Francisco Vallés</h2>
-
-      <p class="descripcion">
-        Consultor y coach senior con más de 25 años de experiencia en diseño de
-        estrategias, mejoramiento de procesos y gestión del cambio organizacional
-        en empresas chilenas e internacionales.
-      </p>
-      <p class="descripcion">
-        Profesor de habilidades directivas en programas de postgrado de la
-        Universidad Adolfo Ibáñez (UAI) y UTEC Lima. Ingeniero Civil Industrial
-        PUC, Máster en PNL, Buenos Aires.
-      </p>
-
-      <div class="credenciales">
-        {credenciales.map(({ Icon, texto }) => (
-          <div class="cred-item">
-            <Icon size={20} aria-hidden="true" />
-            <span>{texto}</span>
-          </div>
-        ))}
+    <div class="profesor-media reveal">
+      <div class="portrait-frame">
+        <img
+          src="/images/francisco_valles2.png"
+          alt="Francisco Vallés, consultor y coach senior, facilitador del taller COMBRIDGE de Comtraining"
+          width="520"
+          height="650"
+          loading="lazy"
+        />
+      </div>
+      <div class="portrait-caption">
+        <span>Socio Comtraining</span>
+        <strong>Profesor UAI y facilitador senior</strong>
       </div>
     </div>
   </div>
@@ -56,140 +62,109 @@ const credenciales = [
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.18 },
   );
 
-  document.querySelectorAll('#profesor .fade-in').forEach((el) => observer.observe(el));
+  document
+    .querySelectorAll("#profesor .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>
   .profesor {
-    background-color: #f8fafc;
-    padding: 5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.34);
   }
 
-  .profesor-inner {
-    max-width: 1100px;
-    margin: 0 auto;
+  .profesor-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 2.5rem;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.8fr);
+    gap: 3rem;
     align-items: center;
   }
 
-  @media (min-width: 860px) {
-    .profesor-inner {
-      grid-template-columns: minmax(260px, 360px) 1fr;
-      gap: 4rem;
-    }
-  }
-
-  /* ── Foto ── */
-  .foto-col {
-    display: flex;
-    justify-content: center;
-  }
-
-  .foto-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 320px;
-  }
-
-  .foto-wrap img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
-    display: block;
-  }
-
-  .badge {
-    position: absolute;
-    left: 50%;
-    bottom: -14px;
-    transform: translateX(-50%);
-    background-color: #3e5c76;
-    color: #ffffff;
-    font-size: 0.75rem;
-    font-weight: 600;
-    padding: 0.4rem 0.9rem;
-    border-radius: 999px;
-    white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(15, 23, 42, 0.2);
-  }
-
-  /* ── Texto ── */
-  .texto-col {
-    text-align: left;
-  }
-
-  .eyebrow {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #e63946;
-    margin-bottom: 0.75rem;
-  }
-
-  .nombre {
-    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.2;
-    margin: 0 0 1.25rem;
-  }
-
-  .descripcion {
-    font-size: 1rem;
-    color: #475569;
-    line-height: 1.7;
-    margin: 0 0 1rem;
-  }
-
-  /* ── Credenciales ── */
-  .credenciales {
-    margin-top: 1.75rem;
+  .credentials {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0.9rem 1.25rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.9rem;
+    margin-top: 2rem;
   }
 
-  .cred-item {
+  .credential {
     display: flex;
     align-items: center;
-    gap: 0.6rem;
-    color: #1f2937;
-    font-size: 0.9rem;
+    gap: 0.7rem;
+    padding: 0.9rem 1rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: var(--shadow-soft);
+    font-size: 0.92rem;
     font-weight: 700;
-    line-height: 1.3;
   }
 
-  .cred-item :global(svg) {
-    color: #3e5c76;
+  .credential :global(svg) {
+    color: var(--color-brand);
     flex-shrink: 0;
   }
 
-  /* ── Fade-in ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(18px);
-    transition: opacity 0.55s ease, transform 0.55s ease;
+  .profesor-media {
+    position: relative;
   }
 
-  .fade-in--delay { transition-delay: 0.15s; }
+  .portrait-frame {
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
+  }
 
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .portrait-frame img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+  }
+
+  .portrait-caption {
+    position: absolute;
+    left: 1.2rem;
+    right: 1.2rem;
+    bottom: 1.2rem;
+    padding: 1rem 1.1rem;
+    border-radius: 20px;
+    background: rgba(11, 28, 45, 0.78);
+    color: #fff;
+    backdrop-filter: blur(12px);
+  }
+
+  .portrait-caption span {
+    display: block;
+    color: var(--color-accent-soft);
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .portrait-caption strong {
+    display: block;
+    margin-top: 0.45rem;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 960px) {
+    .profesor-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .credentials {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

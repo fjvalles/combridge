@@ -1,50 +1,67 @@
 ---
-import { Target, Users, MessageCircle, Trophy } from '@lucide/astro';
+import { Target, Users, MessageCircle, Zap } from '@lucide/astro';
 
-const cards = [
+const items = [
   {
     Icon: Target,
-    titulo: 'Objetivos claros',
-    desc: 'Definir y lograr objetivos concretos en un contexto de trabajo en equipo bajo presión real.',
+    number: '01',
+    badge: 'Alineamiento',
+    title: 'Objetivos que todos entienden — y todos cumplen',
+    desc: 'Traducir una meta ambigua en acción coordinada es la diferencia entre un equipo promedio y uno extraordinario. Aquí se practica en tiempo real, con consecuencias reales.',
   },
   {
     Icon: Users,
-    titulo: 'Colaborar',
-    desc: 'Compartir recursos, asignar tareas y mantener alta calidad colaborando entre subequipos.',
+    number: '02',
+    badge: 'Coordinación',
+    title: 'Colaboración bajo presión, sin caos',
+    desc: 'Recursos limitados, plazos ajustados, múltiples frentes. La experiencia revela quién conecta con quién y cómo distribuir esfuerzos sin perder calidad ni ritmo.',
   },
   {
     Icon: MessageCircle,
-    titulo: 'Comunicación',
-    desc: 'Comunicarse efectivamente y con frecuencia para coordinar esfuerzos sin perder el foco.',
+    number: '03',
+    badge: 'Comunicación',
+    title: 'Conversaciones que mueven el proyecto',
+    desc: 'La ambigüedad cuesta metros de puente. El equipo instala un lenguaje preciso, de alta cadencia y sin ruido — el mismo que necesita en cualquier proyecto crítico.',
   },
   {
-    Icon: Trophy,
-    titulo: 'Lograr lo imposible',
-    desc: 'Alinear esfuerzos individuales, de equipo y organizacionales para conseguir resultados extraordinarios.',
+    Icon: Zap,
+    number: '04',
+    badge: 'Confianza',
+    title: 'La certeza de que lo imposible es alcanzable',
+    desc: 'Cuando 35 personas se alinean y ejecutan, construyen 14 metros en 90 minutos. Esa certeza opera mucho después de que el taller termina.',
   },
 ];
 ---
 
-<section class="aprendizajes" id="aprendizajes">
-  <div class="aprendizajes-inner">
-    <div class="header fade-in">
-      <span class="eyebrow">Aprendizajes clave</span>
-      <h2 class="titulo">Lo que tu equipo se lleva del taller</h2>
+<section class="section aprendizajes" id="aprendizajes">
+  <div class="shell">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Lo que se lleva tu equipo</span>
+      <h2 class="section-title">4 habilidades que solo la presión real enseña.</h2>
+      <p class="section-copy">Ningún PowerPoint instala esto. Son habilidades que emergen cuando hay urgencia, consecuencias y un equipo real trabajando junto.</p>
     </div>
 
-    <div class="cards-grid">
-      {cards.map((card, i) => (
-        <article
-          class="card fade-in"
-          style={`transition-delay: ${i * 100}ms`}
-        >
-          <div class="card-icon">
-            <card.Icon size={32} color="#3E5C76" aria-hidden="true" />
+    <div class="ap-grid">
+      {items.map((item, index) => (
+        <article class="ap-card reveal" style={`transition-delay: ${index * 100}ms`}>
+          <span class="ap-bg-number" aria-hidden="true">{item.number}</span>
+          <div class="ap-top">
+            <div class="ap-icon">
+              <item.Icon size={22} aria-hidden="true" />
+            </div>
+            <span class="ap-badge">{item.badge}</span>
           </div>
-          <h3 class="card-titulo">{card.titulo}</h3>
-          <p class="card-desc">{card.desc}</p>
+          <div class="ap-body">
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </div>
         </article>
       ))}
+    </div>
+
+    <div class="ap-footer reveal">
+      <p>¿Tu equipo necesita vivir esta experiencia?</p>
+      <a href="#agendar" class="ap-cta-link">Agenda una conversación →</a>
     </div>
   </div>
 </section>
@@ -62,111 +79,213 @@ const cards = [
     { threshold: 0.12 }
   );
 
-  document.querySelectorAll('#aprendizajes .fade-in').forEach((el) => observer.observe(el));
+  document.querySelectorAll('#aprendizajes .reveal').forEach((el) => observer.observe(el));
 </script>
 
 <style>
   .aprendizajes {
-    background-color: #f8fafc;
-    padding: 5rem 1.5rem;
+    padding: 4.35rem 0;
+    background: var(--color-brand-deep);
+    position: relative;
+    overflow: hidden;
   }
 
-  .aprendizajes-inner {
-    max-width: 1100px;
-    margin: 0 auto;
+  .aprendizajes::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 80% 20%, rgba(217, 109, 63, 0.12), transparent),
+      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(62, 92, 118, 0.25), transparent);
+    pointer-events: none;
   }
 
-  /* ── Header ── */
-  .header {
-    text-align: center;
-    margin-bottom: 3rem;
+  .aprendizajes .section-title {
+    color: #fff;
   }
 
-  .eyebrow {
-    display: block;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #e63946;
-    margin-bottom: 0.75rem;
+  .aprendizajes .eyebrow {
+    color: var(--color-accent);
   }
 
-  .titulo {
-    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.2;
+  .aprendizajes .section-copy {
+    color: rgba(255, 255, 255, 0.55);
   }
 
-  /* ── Grid ── */
-  .cards-grid {
+  .aprendizajes :global(.section-intro) {
+    margin-bottom: 1.6rem;
+  }
+
+  .ap-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 
-  @media (min-width: 600px) {
-    .cards-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  .ap-card {
+    position: relative;
+    padding: 1.45rem 1.35rem;
+    background: rgba(255, 255, 255, 0.04);
+    overflow: hidden;
+    transition: background 0.3s ease;
   }
 
-  @media (min-width: 960px) {
-    .cards-grid {
-      grid-template-columns: repeat(4, 1fr);
-    }
+  .ap-card:hover {
+    background: rgba(255, 255, 255, 0.07);
   }
 
-  /* ── Card ── */
-  .card {
-    background: #ffffff;
-    border: 1px solid #e2e8f0;
-    border-top: 3px solid transparent;
-    border-radius: 12px;
-    padding: 1.75rem 1.5rem;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, border-top-color 0.2s ease;
+  /* Accent bar on hover */
+  .ap-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: var(--color-accent);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.35s ease;
   }
 
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    border-top-color: #3e5c76;
+  .ap-card:hover::after {
+    transform: scaleY(1);
   }
 
-  .card-icon {
+  /* Giant background number */
+  .ap-bg-number {
+    position: absolute;
+    bottom: 0.5rem;
+    right: 0.65rem;
+    font-family: var(--font-display);
+    font-size: 2.75rem;
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.06em;
+    color: rgba(255, 255, 255, 0.024);
+    pointer-events: none;
+    user-select: none;
+    transition: color 0.3s ease;
+  }
+
+  .ap-card:hover .ap-bg-number {
+    color: rgba(217, 109, 63, 0.08);
+  }
+
+  .ap-top {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
   }
 
-  .card-titulo {
-    font-size: 1.05rem;
+  .ap-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.45rem;
+    height: 2.45rem;
+    border-radius: 12px;
+    background: rgba(217, 109, 63, 0.15);
+    color: var(--color-accent);
+    border: 1px solid rgba(217, 109, 63, 0.25);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .ap-card:hover .ap-icon {
+    background: rgba(217, 109, 63, 0.22);
+    border-color: rgba(217, 109, 63, 0.4);
+  }
+
+  .ap-badge {
+    font-size: 0.66rem;
     font-weight: 700;
-    color: #1f2937;
-    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 0.24rem 0.58rem;
+    border-radius: 999px;
   }
 
-  .card-desc {
-    font-size: 0.9rem;
-    color: #64748b;
-    line-height: 1.65;
+  .ap-body h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--font-display);
+    font-size: 1.02rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: #fff;
+    letter-spacing: -0.02em;
+    max-width: 24ch;
   }
 
-  /* ── Fade-in staggered ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.5s ease,
-      transform 0.5s ease;
+  .ap-body p {
+    margin: 0;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.5);
   }
 
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
+  .ap-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 1.35rem;
+    flex-wrap: wrap;
+  }
+
+  .ap-footer p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: rgba(255, 255, 255, 0.45);
+  }
+
+  .ap-cta-link {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--color-accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(217, 109, 63, 0.4);
+    padding-bottom: 1px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .ap-cta-link:hover {
+    color: #f08050;
+    border-color: rgba(217, 109, 63, 0.8);
+  }
+
+  @media (max-width: 720px) {
+    .aprendizajes {
+      padding: 3.7rem 0;
+    }
+
+    .ap-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .ap-card {
+      padding: 1.35rem 1.2rem;
+    }
+
+    .ap-bg-number {
+      font-size: 2.25rem;
+    }
+
+    .ap-body h3 {
+      font-size: 1rem;
+      max-width: none;
+    }
+
+    .ap-footer {
+      flex-direction: column;
+      gap: 0.5rem;
+      text-align: center;
+    }
   }
 </style>

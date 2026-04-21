@@ -1,55 +1,51 @@
 ---
+const principles = [
+  'Liderazgo visible cuando el tiempo aprieta',
+  'Comunicación que alinea decisiones en tiempo real',
+  'Gestión de proyecto aplicada, no teórica',
+];
 ---
 
-<section class="experiencia" id="experiencia">
-  <div class="experiencia-inner">
+<section class="section experiencia" id="experiencia">
+  <div class="shell experiencia-grid">
+    <div class="experiencia-media reveal">
+      <img
+        src="/images/armando-puente.jpg"
+        alt="Manos de participantes armando el puente durante el taller COMBRIDGE"
+        width="720"
+        height="860"
+        loading="lazy"
+        decoding="async"
+      />
+      <div class="experiencia-quote">
+        <span>La complejidad deja de ser abstracta.</span>
+        <p>El equipo la ve, la conversa y la resuelve con sus propias manos.</p>
+      </div>
+    </div>
 
-    <!-- Texto -->
-    <div class="col-texto fade-in">
+    <div class="experiencia-copy reveal">
       <span class="eyebrow">La experiencia</span>
-      <h2 class="titulo">Desafíate a ti mismo construyendo lo imposible</h2>
-      <p class="parrafo">
-        Desafíate a ti mismo construyendo un puente ajustado a estrictos estándares de
-        calidad. Rompe tus propias limitaciones y descubre que esta tarea monumental es
-        posible. Sorpréndete al ver cómo el liderazgo, la comunicación, la colaboración
-        en equipo y la gestión de proyectos se materializan en resultados tangibles,
-        construidos con tus propias manos.
+      <h2 class="section-title">Un desafío inmersivo que convierte presión en claridad.</h2>
+      <p class="section-copy">
+        El taller enfrenta al equipo con un objetivo ambicioso, restricciones reales y
+        una coordinación exigente. A medida que la estructura crece, también aparecen los
+        patrones de liderazgo, confianza y ejecución que normalmente quedan ocultos.
       </p>
-      <p class="parrafo">
-        Tu rol individual será clave, elevando tu potencial al máximo como parte de un
-        equipo. Las valiosas lecciones y el sentido de logro de esta experiencia
-        transformarán tu enfoque hacia los proyectos, acelerando la consecución de
-        objetivos cuando regreses a tu trabajo habitual.
+      <p class="section-copy">
+        Esa es la diferencia de COMBRIDGE: el aprendizaje no se explica, se vive. Cada
+        decisión tiene consecuencias visibles y cada avance obliga a colaborar mejor.
       </p>
-      <a href="#agendar" class="btn-cta">Agenda una reunión</a>
-    </div>
 
-    <!-- Fotos -->
-    <div class="col-fotos fade-in fade-in--delay">
-      <div class="foto-wrap foto-top">
-        <img
-          src="/images/equipo-mesa.jpg"
-          alt="Equipo planificando la construcción del puente"
-          class="foto"
-          width="600"
-          height="280"
-          loading="lazy"
-          decoding="async"
-        />
-      </div>
-      <div class="foto-wrap foto-bottom">
-        <img
-          src="/images/equipo-grupal.jpg"
-          alt="Equipo completo junto al puente terminado"
-          class="foto"
-          width="600"
-          height="280"
-          loading="lazy"
-          decoding="async"
-        />
+      <ul class="principles">
+        {principles.map((principle) => (
+          <li>{principle}</li>
+        ))}
+      </ul>
+
+      <div class="button-row experiencia-actions">
+        <a href="#agendar" class="button-primary">Agenda una reunión</a>
       </div>
     </div>
-
   </div>
 </section>
 
@@ -63,126 +59,105 @@
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.18 }
   );
 
-  document.querySelectorAll('#experiencia .fade-in').forEach((el) => observer.observe(el));
+  document.querySelectorAll('#experiencia .reveal').forEach((el) => observer.observe(el));
 </script>
 
 <style>
-  .experiencia {
-    background-color: #ffffff;
-    padding: 5rem 1.5rem;
-  }
-
-  .experiencia-inner {
-    max-width: 1100px;
-    margin: 0 auto;
+  .experiencia-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3.5rem;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 3rem;
     align-items: center;
   }
 
-  @media (min-width: 860px) {
-    .experiencia-inner {
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-    }
+  .experiencia-media {
+    position: relative;
+    min-height: 100%;
   }
 
-  /* ── Fade-in ── */
-  .fade-in {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.65s ease, transform 0.65s ease;
+  .experiencia-media img {
+    display: block;
+    width: 100%;
+    min-height: 36rem;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-strong);
   }
 
-  .fade-in--delay {
-    transition-delay: 0.18s;
+  .experiencia-quote {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    max-width: 18rem;
+    padding: 1.2rem;
+    border-radius: 24px;
+    background: rgba(11, 28, 45, 0.78);
+    color: #fff;
+    backdrop-filter: blur(14px);
   }
 
-  .fade-in.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── Texto ── */
-  .eyebrow {
+  .experiencia-quote span {
     display: block;
     font-size: 0.78rem;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: #e63946;
-    margin-bottom: 0.75rem;
+    color: var(--color-accent-soft);
   }
 
-  .titulo {
-    font-size: clamp(1.6rem, 3.5vw, 2.25rem);
-    font-weight: 800;
-    color: #1f2937;
-    line-height: 1.2;
-    margin-bottom: 1.25rem;
+  .experiencia-quote p {
+    margin: 0.75rem 0 0;
+    line-height: 1.7;
   }
 
-  .parrafo {
-    font-size: 1rem;
-    color: #374151;
-    line-height: 1.75;
-    margin-bottom: 1.1rem;
+  .principles {
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.9rem;
   }
 
-  .btn-cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0.5rem;
-    padding: 0.875rem 1.75rem;
-    background-color: #3e5c76;
-    color: #fff;
-    border: 2px solid #3e5c76;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-
-  .btn-cta:hover,
-  .btn-cta:focus-visible {
-    background-color: #2d4356;
-    border-color: #2d4356;
-  }
-
-  /* ── Fotos ── */
-  .col-fotos {
+  .principles li {
     display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
+    align-items: center;
+    gap: 0.9rem;
+    color: var(--color-text);
+    font-weight: 700;
   }
 
-  .foto-wrap {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  .principles li::before {
+    content: '';
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--color-accent), #f0b291);
+    box-shadow: 0 0 0 8px rgba(217, 109, 63, 0.12);
+    flex-shrink: 0;
   }
 
-  .foto-bottom {
-    /* Offset visual para crear profundidad */
-    margin-left: 1.25rem;
+  .experiencia-actions {
+    margin-top: 2rem;
   }
 
-  @media (min-width: 860px) {
-    .foto-bottom {
-      margin-left: 1.5rem;
+  @media (max-width: 960px) {
+    .experiencia-grid {
+      grid-template-columns: 1fr;
     }
   }
 
-  .foto {
-    width: 100%;
-    height: 280px;
-    object-fit: cover;
-    display: block;
+  @media (max-width: 720px) {
+    .experiencia-media img {
+      min-height: 28rem;
+    }
+
+    .experiencia-quote {
+      left: 1rem;
+      right: 1rem;
+      max-width: none;
+    }
   }
 </style>

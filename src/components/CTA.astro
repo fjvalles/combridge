@@ -1,96 +1,137 @@
 ---
 ---
 
-<section class="cta" id="agendar">
-  <div class="cta-inner">
-    <span class="eyebrow">Agenda una reunión</span>
-    <h2 class="titulo">Conversemos sobre tu equipo</h2>
-    <p class="subtitulo">
-      30 minutos para explorar cómo COMBRIDGE puede transformar la forma en que
-      tu equipo colabora y ejecuta proyectos.
-    </p>
+<section class="section cta" id="agendar">
+  <div class="shell cta-shell">
+    <div class="cta-copy reveal">
+      <span class="eyebrow">Agenda una reunión</span>
+      <h2 class="section-title">Veamos si COMBRIDGE es para tu equipo.</h2>
+      <p class="section-copy">
+        Revisamos contexto y objetivos. Si hay buen encaje, saldrás con una recomendación
+        concreta de formato para avanzar.
+      </p>
 
-    <div class="embed-wrap">
+      <p class="cta-contact">
+        ¿Prefieres escribirnos? <a href="mailto:contacto@comtraining.cl">contacto@comtraining.cl</a>
+      </p>
+    </div>
+
+    <div class="cta-embed reveal">
       <iframe
-        src="https://cal.com/fjvalles?embed=true&theme=light&brandColor=%233E5C76"
+        src="https://cal.com/fjvalles?embed=true&theme=light&brandColor=%2314324A"
         title="Agendar reunión con Francisco Vallés"
         loading="lazy"
         allow="camera; microphone"
-        style="width:100%;height:660px;border:none;border-radius:12px;background:transparent;"
+        class="cta-frame"
+        style="width:100%;border:none;background:transparent;"
       ></iframe>
     </div>
-
-    <p class="contacto">
-      ¿Prefieres escribirnos?&nbsp;
-      <a href="mailto:contacto@comtraining.cl">contacto@comtraining.cl</a>
-    </p>
   </div>
 </section>
 
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.16 }
+  );
+
+  document.querySelectorAll('#agendar .reveal').forEach((el) => observer.observe(el));
+</script>
+
 <style>
   .cta {
-    background-color: #3e5c76;
-    padding: 5rem 1.5rem 4rem;
+    color: #fff;
+    background:
+      radial-gradient(circle at top left, rgba(217, 109, 63, 0.18), transparent 28%),
+      linear-gradient(180deg, #14324a 0%, #0b1c2d 100%);
   }
 
-  .cta-inner {
-    max-width: 900px;
-    margin: 0 auto;
+  .cta-shell {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  .cta :global(.section-title),
+  .cta :global(.section-copy) {
+    color: inherit;
+  }
+
+  .cta :global(.section-copy) {
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .cta-highlights {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 2rem;
+  }
+
+  .cta-highlights span {
     display: flex;
-    flex-direction: column;
     align-items: center;
-  }
-
-  .eyebrow {
-    display: block;
-    font-size: 0.78rem;
+    gap: 0.8rem;
+    color: rgba(255, 255, 255, 0.86);
     font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: #e63946;
-    margin-bottom: 0.75rem;
   }
 
-  .titulo {
-    font-size: clamp(1.6rem, 3.4vw, 2.2rem);
-    font-weight: 800;
-    color: #ffffff;
-    text-align: center;
-    line-height: 1.2;
-    margin: 0 0 1rem;
+  .cta-highlights span::before {
+    content: '';
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    box-shadow: 0 0 0 8px rgba(217, 109, 63, 0.16);
+    flex-shrink: 0;
   }
 
-  .subtitulo {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
+  .cta-contact {
+    margin: 2rem 0 0;
+    color: rgba(255, 255, 255, 0.72);
     line-height: 1.7;
-    max-width: 560px;
-    margin: 0 0 2.5rem;
   }
 
-  .embed-wrap {
-    width: 100%;
-    border-radius: 12px;
+  .cta-contact a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  }
+
+  .cta-embed {
     overflow: hidden;
-    background: #ffffff;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: var(--shadow-strong);
   }
 
-  .contacto {
-    margin-top: 1.5rem;
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.6);
-    text-align: center;
+  .cta-frame {
+    display: block;
+    min-height: 700px;
   }
 
-  .contacto a {
-    color: rgba(255, 255, 255, 0.6);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    transition: color 0.2s ease;
+  @media (max-width: 960px) {
+    .cta-shell {
+      grid-template-columns: 1fr;
+    }
+    /* En móvil, el calendario primero */
+    .cta-embed {
+      order: -1;
+    }
   }
 
-  .contacto a:hover {
-    color: rgba(255, 255, 255, 0.9);
+  @media (max-width: 720px) {
+    .cta-frame {
+      min-height: 620px;
+    }
   }
 </style>

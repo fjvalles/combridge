@@ -1,9 +1,9 @@
 ---
 const stats = [
-  { value: 14,    suffix: '',    unit: 'metros',   desc: 'de puente construido'   },
-  { value: 9000,  suffix: '',    unit: 'piezas',   desc: 'ensambladas en obra'    },
-  { value: 90,    suffix: '',    unit: 'minutos',  desc: 'de construcción'        },
-  { value: 35,    suffix: '',    unit: 'personas', desc: 'máximo por taller'      },
+  { value: 14, label: 'metros', desc: 'de puente construido por el equipo' },
+  { value: 9000, label: 'piezas', desc: 'que obligan a planificar con precisión' },
+  { value: 90, label: 'minutos', desc: 'para coordinar y ejecutar bajo presión' },
+  { value: 35, label: 'personas', desc: 'máximo por sesión para sostener intensidad' },
 ];
 
 function formatDisplay(n: number): string {
@@ -11,44 +11,53 @@ function formatDisplay(n: number): string {
 }
 ---
 
-<section class="numeros" aria-label="Cifras del taller">
-  <div class="numeros-grid">
-    {stats.map((s, i) => (
-      <div class="stat" data-target={s.value} data-index={i}>
-        <span class="stat-number" data-format={s.value === 9000 ? 'miles' : 'plain'}>
-          {formatDisplay(s.value)}
-        </span>
-        <span class="stat-unit">{s.unit}</span>
-        <span class="stat-desc">{s.desc}</span>
+<section class="numeros">
+  <div class="shell">
+    <div class="numeros-panel">
+      <div class="numeros-intro reveal">
+        <span class="eyebrow">La experiencia en cifras</span>
+        <h2 class="section-title">Una experiencia real, medible y difícil de olvidar.</h2>
+        <p class="section-copy">
+          COMBRIDGE lleva liderazgo, comunicación y gestión de proyectos a un terreno concreto.
+          Aquí el aprendizaje no queda en ideas sueltas: se ve en cómo el equipo planifica,
+          coordina y logra construir algo real bajo presión.
+        </p>
       </div>
-    ))}
+
+      <div class="numeros-grid" aria-label="Cifras principales del taller">
+        {stats.map((stat) => (
+          <article class="stat reveal" data-target={stat.value}>
+            <span class="stat-value" data-format={stat.value === 9000 ? 'miles' : 'plain'}>
+              {formatDisplay(stat.value)}
+            </span>
+            <span class="stat-label">{stat.label}</span>
+            <p class="stat-desc">{stat.desc}</p>
+          </article>
+        ))}
+      </div>
+    </div>
   </div>
 </section>
 
 <script>
-  function formatNumber(n: number, format: string): string {
-    if (format === 'miles') {
-      return n.toLocaleString('es-CL');
-    }
-    return String(n);
+  function formatNumber(n: number, format: string) {
+    return format === 'miles' ? n.toLocaleString('es-CL') : String(n);
   }
 
   function animateCount(el: Element) {
-    const numberEl = el.querySelector('.stat-number') as HTMLElement;
+    const numberEl = el.querySelector('.stat-value');
     if (!numberEl) return;
 
     const target = parseInt(el.getAttribute('data-target') || '0', 10);
     const format = numberEl.getAttribute('data-format') || 'plain';
-    const duration = 1400;
+    const duration = 1500;
     const start = performance.now();
 
     function tick(now: number) {
       const elapsed = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // Ease out cubic
       const eased = 1 - Math.pow(1 - progress, 3);
-      const current = Math.round(eased * target);
-      numberEl.textContent = formatNumber(current, format);
+      numberEl.textContent = formatNumber(Math.round(eased * target), format);
       if (progress < 1) requestAnimationFrame(tick);
     }
 
@@ -59,114 +68,106 @@ function formatDisplay(n: number): string {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          animateCount(entry.target);
+          entry.target.classList.add('visible');
+          if (entry.target.classList.contains('stat')) animateCount(entry.target);
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.22 }
   );
 
-  document.querySelectorAll('.stat').forEach((el) => observer.observe(el));
+  document.querySelectorAll('.numeros .reveal').forEach((el) => observer.observe(el));
 </script>
 
 <style>
   .numeros {
-    background-color: #3e5c76;
-    padding: 5rem 1.5rem;
+    position: relative;
+    margin-top: -4.5rem;
+    z-index: 2;
+  }
+
+  .numeros-panel {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+    gap: 2rem;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.36);
+    border-radius: var(--radius-lg);
+    background:
+      linear-gradient(135deg, rgba(255, 250, 244, 0.96), rgba(246, 239, 231, 0.88)),
+      rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .numeros-intro {
+    align-self: center;
   }
 
   .numeros-grid {
-    max-width: 1100px;
-    margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  /* 2×2 en tablet */
-  @media (min-width: 540px) {
-    .numeros-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 2.5rem 0;
-    }
-
-    /* Separadores horizontales entre filas */
-    .stat:nth-child(n+3) {
-      border-top: 1px solid rgba(255, 255, 255, 0.15);
-      padding-top: 2.5rem;
-    }
-
-    /* Separadores verticales entre columnas */
-    .stat:nth-child(odd) {
-      border-right: 1px solid rgba(255, 255, 255, 0.15);
-      padding-right: 2.5rem;
-    }
-    .stat:nth-child(even) {
-      padding-left: 2.5rem;
-    }
-  }
-
-  /* 4 columnas en desktop */
-  @media (min-width: 900px) {
-    .numeros-grid {
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0;
-    }
-
-    .stat {
-      border-top: none !important;
-      padding-top: 0 !important;
-    }
-
-    .stat:nth-child(odd) {
-      border-right: none;
-      padding-right: 0;
-    }
-    .stat:nth-child(even) {
-      padding-left: 0;
-    }
-
-    /* Separadores verticales solo en desktop */
-    .stat:not(:last-child) {
-      border-right: 1px solid rgba(255, 255, 255, 0.18);
-      padding-right: 2rem;
-    }
-    .stat:not(:first-child) {
-      padding-left: 2rem;
-    }
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
 
   .stat {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 0.4rem;
+    min-height: 12rem;
+    padding: 1.4rem;
+    border: 1px solid rgba(16, 33, 49, 0.08);
+    border-radius: calc(var(--radius-md) - 6px);
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: var(--shadow-soft);
   }
 
-  .stat-number {
-    font-size: clamp(2.75rem, 6vw, 4.25rem);
-    font-weight: 800;
-    color: #ffffff;
+  .stat-value {
+    display: block;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 4.2rem);
     line-height: 1;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.06em;
+    color: var(--color-brand);
   }
 
-  .stat-unit {
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: #e63946;
+  .stat-label {
+    display: block;
+    margin-top: 0.65rem;
+    color: var(--color-accent);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    letter-spacing: 0.06em;
-    margin-top: 0.25rem;
   }
 
   .stat-desc {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.78);
-    margin-top: 0.15rem;
-    line-height: 1.4;
+    margin: 1rem 0 0;
+    color: var(--color-text-soft);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 960px) {
+    .numeros {
+      margin-top: -2rem;
+    }
+
+    .numeros-panel {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .numeros-panel {
+      padding: 1.2rem;
+      border-radius: 28px;
+    }
+
+    .numeros-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .stat {
+      min-height: auto;
+    }
   }
 </style>

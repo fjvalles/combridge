@@ -12,7 +12,7 @@ Landing page de una sola página para promocionar **COMBRIDGE**, un taller exper
 - URL base: `https://cal.com/fjvalles`
 - Embed: usar `@calcom/embed-react` o el snippet oficial de iframe embed inline
 
-**CTA secundario:** descargar la ficha técnica en PDF (para compartir internamente en la empresa del visitante).
+**CTA secundario:** scroll a la sección de experiencia para seguir explorando antes de agendar.
 
 ## Audiencia objetivo
 Tomadores de decisión B2B en Chile y Latinoamérica:
@@ -58,7 +58,7 @@ Basada en el brochure existente de Comtraining:
 - Título: **COMBRIDGE**
 - Subtítulo: "Construye un puente y logra lo imposible a través de la colaboración en equipo y la gestión de proyectos."
 - CTA primario: "Agenda una reunión" → scroll suave a `#agendar`
-- CTA secundario: "Descarga la ficha técnica" → abre `/combridge-ficha.pdf` en nueva pestaña
+- CTA secundario: "Ver la experiencia" → scroll suave a `#experiencia`
 
 ### Números
 - **14 metros** de puente construido
@@ -127,7 +127,6 @@ Alternativa si el paquete React da problemas con Astro: usar el snippet oficial 
 - `francisco-valles.jpg` — Foto del profesor (conseguir)
 
 En `/public/`:
-- `combridge-ficha.pdf` — Ficha técnica para descarga
 - `og-image.jpg` — Imagen 1200x630 para compartir en redes
 - `favicon.svg`
 

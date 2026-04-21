@@ -1,0 +1,72 @@
+---
+---
+
+<a href="#agendar" class="mobile-cta" data-event="cta_mobile_sticky" aria-label="Agendar reunión">
+  Agenda una reunión
+</a>
+
+<script>
+  const cta = document.querySelector<HTMLElement>('.mobile-cta');
+  if (cta) {
+    const onScroll = () => {
+      const hero = document.querySelector<HTMLElement>('.hero');
+      const agendar = document.querySelector<HTMLElement>('#agendar');
+      if (!hero) return;
+      const heroBottom = hero.offsetTop + hero.offsetHeight;
+      const scrolledPastHero = window.scrollY > heroBottom - 100;
+      const inAgendar = agendar
+        ? window.scrollY + window.innerHeight > agendar.offsetTop + 200
+        : false;
+      cta.classList.toggle('visible', scrolledPastHero && !inAgendar);
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
+</script>
+
+<style>
+  .mobile-cta {
+    position: fixed;
+    left: max(0.75rem, env(safe-area-inset-left));
+    right: max(0.75rem, env(safe-area-inset-right));
+    bottom: calc(0.75rem + env(safe-area-inset-bottom));
+    z-index: 40;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 1.25rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: #fff8f4;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 16px 32px rgba(217, 109, 63, 0.34);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    touch-action: manipulation;
+  }
+
+  .mobile-cta.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .mobile-cta:focus-visible {
+    outline: 2px solid rgba(255, 248, 244, 0.95);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 720px) {
+    .mobile-cta {
+      display: inline-flex;
+    }
+
+    :global(body) {
+      padding-bottom: 5.75rem;
+    }
+  }
+</style>

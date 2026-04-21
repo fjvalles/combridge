@@ -26,6 +26,12 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 
+# AI-generated docs
+CLAUDE.md
+CONTEXT.md
+GEMINI.md
+PROJECT_CONTEXT.md
+
 # AI tools
 .claude/
 .cursor/
