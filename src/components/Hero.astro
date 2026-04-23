@@ -2,12 +2,12 @@
 import { HardHat, Building, Zap, Cpu, TrendingUp, ShoppingBag } from '@lucide/astro';
 
 const floatingIndustries = [
-  { Icon: HardHat,     name: 'Gran Minería',         delay: '0s',   duration: '5.8s' },
-  { Icon: Zap,         name: 'Energía',               delay: '0.9s', duration: '6.4s' },
-  { Icon: Building,    name: 'Construcción',          delay: '1.7s', duration: '5.2s' },
-  { Icon: Cpu,         name: 'Tecnología',            delay: '0.4s', duration: '7s'   },
-  { Icon: ShoppingBag, name: 'Retail',                delay: '2.3s', duration: '6.1s' },
-  { Icon: TrendingUp,  name: 'Servicios Financieros', delay: '1.1s', duration: '5.6s' },
+  { Icon: HardHat,     name: 'Gran Minería',         delay: '0s',   duration: '5.8s', x: '10%', y: '34%' },
+  { Icon: Zap,         name: 'Energía',              delay: '0.9s', duration: '6.4s', x: '52%', y: '32%' },
+  { Icon: Building,    name: 'Construcción',         delay: '1.7s', duration: '5.2s', x: '42%', y: '54%' },
+  { Icon: Cpu,         name: 'Tecnología',           delay: '0.4s', duration: '7s',   x: '8%',  y: '54%' },
+  { Icon: ShoppingBag, name: 'Retail',               delay: '2.3s', duration: '6.1s', x: '81%', y: '54%' },
+  { Icon: TrendingUp,  name: 'Servicios Financieros', delay: '1.1s', duration: '5.6s', x: '50%', y: '74%' },
 ];
 ---
 
@@ -27,6 +27,18 @@ const floatingIndustries = [
           proyectos en resultados que se ven y se sienten.
         </p>
 
+        <div class="hero-cloud hero-cloud-mobile reveal visible" aria-hidden="true">
+          {floatingIndustries.map(({ Icon, name, delay, duration }) => (
+            <div
+              class="hero-industry-badge"
+              style={`animation-delay: ${delay}; animation-duration: ${duration}`}
+            >
+              <Icon size={15} />
+              <span>{name}</span>
+            </div>
+          ))}
+        </div>
+
         <div class="button-row hero-actions">
           <a
             href="#agendar"
@@ -41,11 +53,11 @@ const floatingIndustries = [
         </div>
       </div>
 
-      <div class="hero-cloud reveal visible" aria-hidden="true">
-        {floatingIndustries.map(({ Icon, name, delay, duration }) => (
+      <div class="hero-cloud hero-cloud-desktop reveal visible" aria-hidden="true">
+        {floatingIndustries.map(({ Icon, name, delay, duration, x, y }) => (
           <div
             class="hero-industry-badge"
-            style={`animation-delay: ${delay}; animation-duration: ${duration}`}
+            style={`animation-delay: ${delay}; animation-duration: ${duration}; --badge-x: ${x}; --badge-y: ${y};`}
           >
             <Icon size={15} />
             <span>{name}</span>
@@ -125,8 +137,8 @@ const floatingIndustries = [
 
   .hero-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(220px, 0.5fr);
-    gap: 3rem;
+    grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
     align-items: center;
     padding: 3rem 0;
   }
@@ -186,25 +198,53 @@ const floatingIndustries = [
   .hero-cloud {
     display: flex;
     flex-wrap: wrap;
-    gap: 1.1rem;
+    gap: clamp(0.6rem, 1vw, 1.1rem);
     align-content: center;
     justify-content: flex-start;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .hero-cloud-mobile {
+    display: none !important;
+    justify-self: start;
+  }
+
+  .hero-cloud-desktop {
+    position: relative;
+    display: block !important;
+    justify-self: stretch;
+    align-self: stretch;
+    min-height: clamp(22rem, 34vw, 31rem);
+    margin-left: clamp(1.5rem, 4vw, 4.5rem);
+  }
+
+  .hero-cloud-desktop .hero-industry-badge {
+    position: absolute;
+    left: var(--badge-x);
+    top: var(--badge-y);
   }
 
   .hero-industry-badge {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
-    padding: 0.5rem 0.85rem;
+    gap: clamp(0.35rem, 0.7vw, 0.55rem);
+    padding: clamp(0.45rem, 0.7vw, 0.62rem) clamp(0.7rem, 1vw, 1rem);
     border-radius: 999px;
     border: 1px solid rgba(255, 255, 255, 0.16);
     background: rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(12px);
     color: rgba(255, 255, 255, 0.72);
-    font-size: 0.78rem;
+    font-size: clamp(0.72rem, 0.78vw, 0.92rem);
     font-weight: 700;
     white-space: nowrap;
     animation: float 6s ease-in-out infinite;
+  }
+
+  .hero-industry-badge :global(svg) {
+    width: clamp(0.82rem, 0.9vw, 1rem);
+    height: clamp(0.82rem, 0.9vw, 1rem);
+    flex-shrink: 0;
   }
 
   @keyframes float {
@@ -238,8 +278,33 @@ const floatingIndustries = [
       padding: 2.25rem 0;
     }
 
+    .hero-cloud-desktop {
+      display: none !important;
+    }
+
+    .hero-cloud-mobile {
+      display: flex !important;
+    }
+
     .hero-cloud {
-      display: none;
+      gap: 0.55rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.9rem;
+      max-width: 30rem;
+      justify-self: start;
+      align-content: flex-start;
+    }
+
+    .hero-industry-badge {
+      padding: 0.42rem 0.68rem;
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .hero-actions {
+      gap: 0.75rem;
+      margin-top: 2rem;
+      max-width: none;
     }
   }
 
@@ -286,10 +351,8 @@ const floatingIndustries = [
       max-width: 19rem;
     }
 
-    .hero-actions {
-      gap: 0.75rem;
-      margin-top: 1.5rem;
-      max-width: none;
+    .hero-cloud {
+      max-width: 22rem;
     }
 
     .hero-scroll {
@@ -312,6 +375,23 @@ const floatingIndustries = [
       margin-bottom: 0.9rem;
       font-size: 0.92rem;
       max-width: 18rem;
+    }
+
+    .hero-cloud {
+      gap: 0.5rem;
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      max-width: 100%;
+    }
+
+    .hero-industry-badge {
+      padding: 0.38rem 0.62rem;
+      font-size: 0.68rem;
+      animation: none;
+    }
+
+    .hero-actions {
+      margin-top: 2.1rem;
     }
   }
 </style>

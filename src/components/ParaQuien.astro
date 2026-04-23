@@ -3,13 +3,6 @@ import {
   Briefcase,
   FolderKanban,
   Building2,
-  HardHat,
-  Building,
-  Zap,
-  Cpu,
-  TrendingUp,
-  ShoppingBag,
-  ArrowUpRight,
 } from '@lucide/astro';
 
 const audiences = [
@@ -30,14 +23,6 @@ const audiences = [
   },
 ];
 
-const industries = [
-  { Icon: HardHat, name: 'Gran Minería' },
-  { Icon: Building, name: 'Construcción e Ingeniería' },
-  { Icon: Zap, name: 'Energía' },
-  { Icon: Cpu, name: 'Tecnología' },
-  { Icon: TrendingUp, name: 'Servicios Financieros' },
-  { Icon: ShoppingBag, name: 'Retail' },
-];
 ---
 
 <section class="section para-quien" id="para-quien">
@@ -63,47 +48,6 @@ const industries = [
         </article>
       ))}
     </div>
-
-    <div class="fit-panel reveal">
-      <div class="fit-copy">
-        <span class="eyebrow fit-eyebrow">Industrias donde genera más tracción</span>
-        <h3>
-          Especialmente potente en contextos donde coordinar bien no es un extra, sino una
-          ventaja competitiva.
-        </h3>
-        <p>
-          COMBRIDGE se adapta al lenguaje, presión y ritmo de operación de cada empresa. Por eso
-          destaca en industrias donde los equipos dependen unos de otros, el margen de error es
-          bajo y la ejecución tiene consecuencias reales.
-        </p>
-
-        <div class="fit-points">
-          <div class="fit-point">
-            <ArrowUpRight size={18} aria-hidden="true" />
-            <span>Equipos cruzados que necesitan alinearse rápido.</span>
-          </div>
-          <div class="fit-point">
-            <ArrowUpRight size={18} aria-hidden="true" />
-            <span>Proyectos con hitos exigentes, plazos tensos y alta interdependencia.</span>
-          </div>
-          <div class="fit-point">
-            <ArrowUpRight size={18} aria-hidden="true" />
-            <span>Organizaciones que quieren volver observable la colaboración.</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="industries-cluster">
-        {industries.map(({ Icon, name }, index) => (
-          <article class="industry-chip" style={`transition-delay: ${120 + index * 70}ms`}>
-            <div class="industry-chip-icon">
-              <Icon size={24} aria-hidden="true" />
-            </div>
-            <span>{name}</span>
-          </article>
-        ))}
-      </div>
-    </div>
   </div>
 </section>
 
@@ -125,10 +69,20 @@ const industries = [
 
 <style>
   .para-quien {
-    color: #ffffff;
+    position: relative;
+    color: #193042;
     background:
-      radial-gradient(circle at top right, rgba(217, 109, 63, 0.14), transparent 30%),
-      linear-gradient(180deg, #102131 0%, #0b1c2d 100%);
+      radial-gradient(circle at top left, rgba(217, 109, 63, 0.1), transparent 28%),
+      radial-gradient(circle at bottom right, rgba(16, 33, 49, 0.08), transparent 34%),
+      linear-gradient(180deg, #f6efe7 0%, #f1e7dc 100%);
+  }
+
+  .para-quien::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(25, 48, 66, 0.18), transparent);
   }
 
   .para-quien-shell {
@@ -141,7 +95,11 @@ const industries = [
   }
 
   .para-quien :global(.section-copy) {
-    color: rgba(255, 255, 255, 0.72);
+    color: rgba(25, 48, 66, 0.74);
+  }
+
+  .para-quien .eyebrow {
+    color: #c96c3d;
   }
 
   .audience-grid {
@@ -153,10 +111,15 @@ const industries = [
 
   .audience {
     padding: 1.7rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.18);
-    border-radius: 0 0 26px 26px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(25, 48, 66, 0.1);
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.68)),
+      rgba(255, 255, 255, 0.72);
+    box-shadow:
+      0 20px 50px rgba(17, 31, 44, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
   }
 
   .audience-icon {
@@ -167,151 +130,30 @@ const industries = [
     height: 3.2rem;
     border-radius: 18px;
     background: rgba(217, 109, 63, 0.14);
-    color: var(--color-accent-soft);
+    color: #c96c3d;
+    border: 1px solid rgba(217, 109, 63, 0.18);
   }
 
   .audience h3 {
     margin: 1.2rem 0 0;
     font-size: 1.18rem;
     line-height: 1.3;
+    color: #193042;
   }
 
   .audience p {
     margin: 0.85rem 0 0;
-    color: rgba(255, 255, 255, 0.74);
+    color: rgba(25, 48, 66, 0.72);
     line-height: 1.8;
   }
-
-  .fit-panel {
-    display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    gap: 1.4rem;
-    margin-top: 1.8rem;
-    padding: 1.4rem;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 32px;
-    background:
-      radial-gradient(circle at top left, rgba(217, 109, 63, 0.18), transparent 34%),
-      linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
-    box-shadow: 0 28px 80px rgba(6, 16, 27, 0.22);
-  }
-
-  .fit-copy {
-    padding: 0.9rem;
-  }
-
-  .fit-eyebrow {
-    margin-bottom: 0.9rem;
-  }
-
-  .fit-panel h3 {
-    margin: 0;
-    max-width: 14ch;
-    font-family: var(--font-display);
-    font-size: clamp(1.7rem, 2vw, 2.4rem);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
-  }
-
-  .fit-panel p {
-    margin: 1rem 0 0;
-    max-width: 58ch;
-    color: rgba(255, 255, 255, 0.78);
-    line-height: 1.85;
-  }
-
-  .fit-points {
-    display: grid;
-    gap: 0.8rem;
-    margin-top: 1.4rem;
-  }
-
-  .fit-point {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.75rem;
-    padding: 0.95rem 1rem;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    color: rgba(255, 255, 255, 0.82);
-  }
-
-  .fit-point svg {
-    margin-top: 0.1rem;
-    color: var(--color-accent-soft);
-    flex-shrink: 0;
-  }
-
-  .industries-cluster {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.9rem;
-    align-content: center;
-  }
-
-  .industry-chip {
-    display: flex;
-    align-items: center;
-    gap: 0.9rem;
-    padding: 1rem 1.05rem;
-    min-height: 5.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 24px;
-    background: rgba(8, 20, 32, 0.24);
-    backdrop-filter: blur(10px);
-  }
-
-  .industry-chip-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 16px;
-    background: rgba(217, 109, 63, 0.14);
-    color: var(--color-accent-soft);
-    flex-shrink: 0;
-  }
-
-  .industry-chip span {
-    font-size: 0.98rem;
-    font-weight: 800;
-    line-height: 1.25;
-    color: #ffffff;
-  }
-
   @media (max-width: 960px) {
     .audience-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .fit-panel {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  @media (max-width: 720px) {
-    .fit-panel {
-      padding: 1rem;
-      border-radius: 26px;
-    }
-
-    .fit-copy {
-      padding: 0.35rem;
-    }
-
-    .fit-panel h3 {
-      max-width: none;
-    }
-
-    .industries-cluster {
       grid-template-columns: 1fr;
     }
   }
 
   @media (max-width: 480px) {
-    .audience,
-    .industry-chip {
+    .audience {
       padding: 1rem;
     }
   }
