@@ -1,13 +1,25 @@
 ---
 const stats = [
-  { value: 14, label: 'metros', desc: 'de puente construido por el equipo' },
-  { value: 9000, label: 'piezas', desc: 'que obligan a planificar con precisión' },
-  { value: 90, label: 'minutos', desc: 'para coordinar y ejecutar bajo presión' },
-  { value: 35, label: 'personas', desc: 'máximo por sesión para sostener intensidad' },
+  { value: 14, label: "metros", desc: "de puente construido por el equipo" },
+  {
+    value: 9000,
+    label: "piezas",
+    desc: "que obligan a planificar con precisión",
+  },
+  {
+    value: 90,
+    label: "minutos",
+    desc: "para coordinar y ejecutar bajo presión",
+  },
+  {
+    value: 35,
+    label: "personas",
+    desc: "máximo por sesión para sostener intensidad",
+  },
 ];
 
 function formatDisplay(n: number): string {
-  return n === 9000 ? '9.000' : String(n);
+  return n === 9000 ? "9.000" : String(n);
 }
 ---
 
@@ -16,24 +28,32 @@ function formatDisplay(n: number): string {
     <div class="numeros-panel">
       <div class="numeros-intro reveal">
         <span class="eyebrow">La experiencia en cifras</span>
-        <h2 class="section-title">Una experiencia real, medible y difícil de olvidar.</h2>
+        <h2 class="section-title">
+          Una experiencia real, medible y difícil de olvidar.
+        </h2>
         <p class="section-copy">
-          COMBRIDGE lleva liderazgo, comunicación y gestión de proyectos a un terreno concreto.
-          Aquí el aprendizaje no queda en ideas sueltas: se ve en cómo el equipo planifica,
-          coordina y logra construir algo real bajo presión.
+          COMBRIDGE lleva el liderazgo, la comunicación y la gestión de
+          proyectos a un terreno concreto. Aquí el aprendizaje no queda en ideas
+          sueltas: se ve en cómo el equipo planifica, coordina y logra construir
+          algo real bajo presión.
         </p>
       </div>
 
       <div class="numeros-grid" aria-label="Cifras principales del taller">
-        {stats.map((stat) => (
-          <article class="stat reveal" data-target={stat.value}>
-            <span class="stat-value" data-format={stat.value === 9000 ? 'miles' : 'plain'}>
-              {formatDisplay(stat.value)}
-            </span>
-            <span class="stat-label">{stat.label}</span>
-            <p class="stat-desc">{stat.desc}</p>
-          </article>
-        ))}
+        {
+          stats.map((stat) => (
+            <article class="stat reveal" data-target={stat.value}>
+              <span
+                class="stat-value"
+                data-format={stat.value === 9000 ? "miles" : "plain"}
+              >
+                {formatDisplay(stat.value)}
+              </span>
+              <span class="stat-label">{stat.label}</span>
+              <p class="stat-desc">{stat.desc}</p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </div>
@@ -41,15 +61,15 @@ function formatDisplay(n: number): string {
 
 <script>
   function formatNumber(n: number, format: string) {
-    return format === 'miles' ? n.toLocaleString('es-CL') : String(n);
+    return format === "miles" ? n.toLocaleString("es-CL") : String(n);
   }
 
   function animateCount(el: Element) {
-    const numberEl = el.querySelector('.stat-value');
+    const numberEl = el.querySelector(".stat-value");
     if (!numberEl) return;
 
-    const target = parseInt(el.getAttribute('data-target') || '0', 10);
-    const format = numberEl.getAttribute('data-format') || 'plain';
+    const target = parseInt(el.getAttribute("data-target") || "0", 10);
+    const format = numberEl.getAttribute("data-format") || "plain";
     const duration = 1500;
     const start = performance.now();
 
@@ -68,16 +88,19 @@ function formatDisplay(n: number): string {
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.classList.contains('stat')) animateCount(entry.target);
+          entry.target.classList.add("visible");
+          if (entry.target.classList.contains("stat"))
+            animateCount(entry.target);
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.22 }
+    { threshold: 0.22 },
   );
 
-  document.querySelectorAll('.numeros .reveal').forEach((el) => observer.observe(el));
+  document
+    .querySelectorAll(".numeros .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>
@@ -95,7 +118,11 @@ function formatDisplay(n: number): string {
     border: 1px solid rgba(255, 255, 255, 0.36);
     border-radius: var(--radius-lg);
     background:
-      linear-gradient(135deg, rgba(255, 250, 244, 0.96), rgba(246, 239, 231, 0.88)),
+      linear-gradient(
+        135deg,
+        rgba(255, 250, 244, 0.96),
+        rgba(246, 239, 231, 0.88)
+      ),
       rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(20px);
     box-shadow: var(--shadow-strong);

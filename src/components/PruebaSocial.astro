@@ -1,107 +1,98 @@
 ---
-const logos = [
-  'Codelco',
-  'BCI',
-  'Falabella',
-  'Entel',
-  'Enel',
-  'Colbún',
-];
-
-const testimonials = [
+const videoTestimonials = [
   {
-    quote: "En 90 minutos mi equipo entendió lo que llevábamos meses intentando explicar en reuniones. Salieron alineados, con un lenguaje común y con ganas de aplicarlo al lunes siguiente.",
-    author: "Gerente de Operaciones",
-    company: "Industria Energía · Chile"
+    video: "/videos/testimonio-gabriela.mp4",
+    author: "Gabriela Ledezma",
+    role: "Especialista Control de Riesgos - Codelco",
+    company: "Walmart Chile",
   },
   {
-    quote: "Construir el puente nos obligó a ver los cuellos de botella que tenemos en la oficina, pero de una forma física y real. Fue revelador.",
-    author: "Gerente de Logística",
-    company: "Retail Multicanal"
+    video: "/videos/testimonio-jose.mp4",
+    author: "José Alejandro Soto",
+    role: "Administrador de Contratos BHP - Buffer",
+    company: "Minería",
   },
   {
-    quote: "La presión del tiempo y la cantidad de piezas te obligan a confiar en el liderazgo y en la comunicación. Si uno falla, el puente no sube.",
-    author: "Director de Proyectos",
-    company: "Minería y Procesos"
+    video: "/videos/testimonio-soledad.mp4",
+    author: "Soledad Bernat",
+    role: "Jefa Sostenibilidad - Supermercados Cencosud",
+    company: "Servicios",
   },
-  {
-    quote: "Es el mejor taller de teambuilding que hemos tenido. No es solo jugar, es gestionar recursos y personas bajo presión real.",
-    author: "Subgerente de RRHH",
-    company: "Servicios Financieros"
-  }
 ];
 ---
 
-<section class="section prueba" id="confianza" aria-label="Prueba social y testimonios">
+<section
+  class="section prueba"
+  id="confianza"
+  aria-label="Testimonios de participantes"
+>
   <div class="shell">
     <div class="prueba-head reveal">
       <span class="eyebrow">Confían en nosotros</span>
-      <h2 class="section-title">Equipos que ya cruzaron el puente.</h2>
+      <h2 class="section-title">Resultados que se ven y se escuchan.</h2>
       <p class="prueba-sub">
-        Empresas líderes ya han usado COMBRIDGE para alinear equipos y fortalecer su ejecución.
+        Líderes y equipos comparten su experiencia transformadora tras construir
+        el puente.
       </p>
     </div>
 
-    <div class="prueba-logos reveal" aria-label="Clientes que han participado">
-      {logos.map((logo) => (
-        <div class="prueba-logo" title={`Cliente: ${logo}`}>{logo}</div>
-      ))}
-    </div>
-
-    <div class="prueba-story reveal">
-      <div class="prueba-visual">
-        <img
-          src="/images/grupo-celebrando.jpg"
-          alt="Equipo celebrando junto al puente construido en el taller COMBRIDGE"
-          width="1600"
-          height="900"
-          loading="lazy"
-          decoding="async"
-        />
-        <div class="prueba-visual-caption">
-          <span>Resultado visible</span>
-          <strong>Un equipo alineado construyendo algo real, juntos.</strong>
-        </div>
-      </div>
-
-      <div class="carousel-wrapper">
-        <div class="carousel-container">
-          <div class="carousel-track" id="pruebaTrack">
-            {testimonials.map((t, index) => (
-              <div class="testimonial-slide" data-index={index}>
-                <figure class="prueba-quote">
-                  <blockquote>&ldquo;{t.quote}&rdquo;</blockquote>
-                  <figcaption>
-                    <strong>{t.author}</strong>
-                    <span>{t.company}</span>
-                  </figcaption>
-                </figure>
+    <div class="carousel-wrapper reveal">
+      <div class="carousel-container">
+        <div class="carousel-track" id="videoTrack">
+          {
+            videoTestimonials.map((t, index) => (
+              <div class="video-slide" data-index={index}>
+                <div class="video-card">
+                  <div class="video-container">
+                    <video
+                      controls
+                      preload="metadata"
+                      class="testimonial-video"
+                    >
+                      <source src={t.video} type="video/mp4" />
+                      Tu navegador no soporta videos.
+                    </video>
+                  </div>
+                  <div class="video-info">
+                    <div class="quote-icon" aria-hidden="true">
+                      “
+                    </div>
+                    <div class="author-meta">
+                      <strong>{t.author}</strong>
+                      <span>
+                        {t.role} · {t.company}
+                      </span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
-
-        <div class="carousel-dots" id="pruebaDots">
-          {testimonials.map((_, index) => (
-            <button
-              class={`dot ${index === 0 ? 'active' : ''}`}
-              data-index={index}
-              aria-label={`Ver testimonio de ${testimonials[index].author}`}
-            ></button>
-          ))}
+            ))
+          }
         </div>
       </div>
-    </div>
 
+      <div class="carousel-dots" id="videoDots">
+        {
+          videoTestimonials.map((_, index) => (
+            <button
+              class={`dot ${index === 0 ? "active" : ""}`}
+              data-index={index}
+              aria-label={`Ver testimonio de ${videoTestimonials[index].author}`}
+            />
+          ))
+        }
+      </div>
+    </div>
   </div>
 </section>
 
 <script>
-  const track = document.getElementById('pruebaTrack');
-  const dots = document.querySelectorAll('#pruebaDots .dot');
-  const slides = document.querySelectorAll('.testimonial-slide');
+  const track = document.getElementById("videoTrack");
+  const dots = document.querySelectorAll("#videoDots .dot");
+  const slides = document.querySelectorAll(".video-slide");
   let currentIndex = 0;
   let intervalId;
+  let isVideoPlaying = false;
 
   function updateCarousel(index) {
     currentIndex = index;
@@ -109,20 +100,21 @@ const testimonials = [
     if (track) {
       track.style.transform = `translateX(${offset}%)`;
     }
-    
+
     dots.forEach((dot, i) => {
-      dot.classList.toggle('active', i === currentIndex);
+      dot.classList.toggle("active", i === currentIndex);
     });
   }
 
   function nextSlide() {
+    if (isVideoPlaying) return; // No rotar si hay un video reproduciéndose
     let next = (currentIndex + 1) % slides.length;
     updateCarousel(next);
   }
 
   function startAutoPlay() {
     stopAutoPlay();
-    intervalId = setInterval(nextSlide, 6000);
+    intervalId = setInterval(nextSlide, 5000);
   }
 
   function stopAutoPlay() {
@@ -130,176 +122,80 @@ const testimonials = [
   }
 
   dots.forEach((dot, i) => {
-    dot.addEventListener('click', () => {
+    dot.addEventListener("click", () => {
       updateCarousel(i);
       startAutoPlay();
     });
   });
 
-  // Intersection Observer para las animaciones reveal
+  // Pausar autoplay cuando un video empieza a reproducirse
+  document.querySelectorAll(".testimonial-video").forEach((video) => {
+    video.addEventListener("play", () => {
+      isVideoPlaying = true;
+      stopAutoPlay();
+    });
+    video.addEventListener("pause", () => {
+      isVideoPlaying = false;
+      startAutoPlay();
+    });
+    video.addEventListener("ended", () => {
+      isVideoPlaying = false;
+      startAutoPlay();
+    });
+  });
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          if (entry.target.classList.contains('carousel-wrapper')) {
+          entry.target.classList.add("visible");
+          if (entry.target.classList.contains("carousel-wrapper")) {
             startAutoPlay();
           }
-          observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.15 }
+    { threshold: 0.15 },
   );
 
-  document.querySelectorAll('.prueba .reveal').forEach((el) => observer.observe(el));
-
-  // Pause on hover
-  const wrapper = document.querySelector('.carousel-wrapper');
-  wrapper?.addEventListener('mouseenter', stopAutoPlay);
-  wrapper?.addEventListener('mouseleave', startAutoPlay);
+  document
+    .querySelectorAll(".prueba .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>
   .prueba {
-    padding: 5rem 0;
-    background: rgba(255, 255, 255, 0.34);
+    padding: 6rem 0;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.34) 0%,
+      rgba(246, 239, 231, 0.5) 100%
+    );
   }
 
   .prueba-head {
     text-align: center;
-    max-width: 40rem;
-    margin: 0 auto 2.2rem;
+    max-width: 42rem;
+    margin: 0 auto 3.5rem;
   }
 
   .prueba .section-title {
     margin: 0.75rem 0 1.25rem;
-    font-size: clamp(1.8rem, 3.6vw, 2.4rem);
-    line-height: 1.15;
-  }
-
-  .prueba-sub {
-    color: var(--color-text-soft);
-    font-size: 1rem;
-    line-height: 1.6;
-  }
-
-  .prueba-logos {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1.2rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid var(--color-line);
-    border-bottom: 1px solid var(--color-line);
-    opacity: 0.8;
-  }
-
-  .prueba-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-display);
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: var(--color-text);
-    opacity: 0.35;
-    filter: grayscale(1);
-    transition: opacity 0.3s ease;
-  }
-
-  .prueba-logo:hover {
-    opacity: 0.8;
-    filter: grayscale(0);
-  }
-
-  .prueba-story {
-    display: grid;
-    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1fr);
-    gap: 1.4rem;
-    align-items: stretch;
-    margin-top: 2rem;
-  }
-
-  .prueba-visual {
-    position: relative;
-    min-height: 100%;
-    overflow: hidden;
-    border-radius: 28px;
-    box-shadow: var(--shadow-strong);
-  }
-
-  .prueba-visual img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    min-height: 20rem;
-    object-fit: cover;
-  }
-
-  .prueba-visual::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, rgba(8, 20, 32, 0.08), rgba(8, 20, 32, 0.68)),
-      radial-gradient(circle at top right, rgba(217, 109, 63, 0.3), transparent 35%);
-  }
-
-  .prueba-visual-caption {
-    position: absolute;
-    left: 1rem;
-    right: 1rem;
-    bottom: 1rem;
-    z-index: 1;
-    padding: 1rem 1.05rem;
-    border-radius: 20px;
-    background: rgba(11, 28, 45, 0.72);
-    color: #fff;
-    backdrop-filter: blur(12px);
-  }
-
-  .prueba-visual-caption span {
-    display: block;
-    color: var(--color-accent-soft);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .prueba-visual-caption strong {
-    display: block;
-    margin-top: 0.45rem;
-    font-size: 1rem;
-    line-height: 1.45;
+    font-size: clamp(2rem, 4.5vw, 2.8rem);
+    line-height: 1.1;
   }
 
   .carousel-wrapper {
     position: relative;
-    padding: 1.5rem;
-    border: 1px solid rgba(16, 33, 49, 0.08);
-    border-radius: 28px;
-    background: rgba(255, 255, 255, 0.78);
-    box-shadow: var(--shadow-soft);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-
-  .carousel-wrapper::before {
-    content: '“';
-    position: relative;
-    display: block;
-    margin-bottom: 0.1rem;
-    font-family: var(--font-display);
-    font-size: 4.6rem;
-    line-height: 0.8;
-    color: rgba(217, 109, 63, 0.22);
+    max-width: 54rem;
+    margin: 0 auto;
   }
 
   .carousel-container {
     overflow: hidden;
-    padding: 0 0.25rem;
+    border-radius: 28px;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.12);
+    background: #000;
   }
 
   .carousel-track {
@@ -307,58 +203,72 @@ const testimonials = [
     transition: transform 0.8s cubic-bezier(0.45, 0, 0.15, 1);
   }
 
-  .testimonial-slide {
+  .video-slide {
     flex: 0 0 100%;
     min-width: 100%;
   }
 
-  .prueba-quote {
-    margin: 0;
-    text-align: left;
-    padding: 0.25rem 0;
+  .video-card {
+    background: #fff;
+    overflow: hidden;
   }
 
-  .prueba-quote blockquote {
-    margin: 0;
-    font-family: var(--font-display);
-    font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-    line-height: 1.5;
-    color: var(--color-text);
-    font-style: italic;
-    font-weight: 400;
+  .video-container {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  .prueba-quote figcaption {
-    margin-top: 1.25rem;
-    font-size: 0.96rem;
-    color: var(--color-text-soft);
-  }
-
-  .prueba-quote figcaption strong {
+  .testimonial-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
+  }
+
+  .video-info {
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+  }
+
+  .quote-icon {
+    position: absolute;
+    top: -0.5rem;
+    right: 2rem;
+    font-family: var(--font-display);
+    font-size: 4rem;
+    line-height: 1;
+    color: rgba(217, 109, 63, 0.12);
+  }
+
+  .author-meta strong {
+    display: block;
+    font-size: 1.25rem;
     color: var(--color-text);
     font-weight: 700;
-    font-size: 1.125rem;
   }
 
-  .prueba-quote figcaption span {
+  .author-meta span {
     display: block;
-    margin-top: 0.35rem;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: var(--color-text-soft);
   }
 
   .carousel-dots {
     display: flex;
     justify-content: center;
     gap: 0.75rem;
-    margin-top: 1.5rem;
+    margin-top: 2rem;
   }
 
   .dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     background-color: var(--color-line);
     border: none;
@@ -369,38 +279,18 @@ const testimonials = [
 
   .dot.active {
     background-color: var(--color-accent);
-    transform: scale(1.4);
-  }
-
-  @media (max-width: 960px) {
-    .prueba-logos {
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .prueba-story {
-      grid-template-columns: 1fr;
-    }
+    transform: scale(1.3);
   }
 
   @media (max-width: 640px) {
-    .prueba { padding: 4rem 0; }
-    .prueba-head { margin-bottom: 2rem; }
-    .prueba-logos { grid-template-columns: repeat(2, 1fr); }
-    .prueba-story {
-      gap: 1rem;
+    .prueba {
+      padding: 4rem 0;
     }
-
-    .prueba-visual img {
-      min-height: 15rem;
-    }
-
     .carousel-wrapper {
-      padding: 1.1rem;
+      max-width: 100%;
     }
-
-    .carousel-wrapper::before {
-      font-size: 3.6rem;
+    .video-container {
+      aspect-ratio: 4 / 5;
     }
   }
 </style>

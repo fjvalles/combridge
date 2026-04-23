@@ -1,28 +1,28 @@
 ---
 const faqs = [
   {
-    q: '¿Cuánto espacio necesitamos para realizar el taller?',
-    a: 'Necesitamos un salón amplio de al menos 100 m² con mesas movibles. Podemos adaptarnos a la mayoría de auditorios y salas de capacitación corporativas. Lo coordinamos contigo antes del taller.',
+    q: "¿Cuánto espacio necesitamos para realizar el taller?",
+    a: "Necesitamos un salón amplio de al menos 100 m² con mesas movibles. Podemos adaptarnos a la mayoría de auditorios y salas de capacitación corporativas. Lo coordinamos contigo antes del taller.",
   },
   {
-    q: '¿Cuánto cuesta y qué incluye?',
-    a: 'El valor depende del tamaño del grupo y la ubicación. Incluye diseño, materiales completos (las 9.000 piezas del puente), facilitación y un resumen con los aprendizajes clave del equipo. Te entregamos una propuesta concreta después de la reunión de 30 minutos.',
+    q: "¿Cuánto cuesta y qué incluye?",
+    a: "El valor depende del tamaño del grupo y la ubicación. Incluye diseño, materiales completos (las 9.000 piezas del puente), facilitación y un resumen con los aprendizajes clave del equipo. Te entregamos una propuesta concreta después de un debriefing de 30 minutos.",
   },
   {
-    q: '¿Funciona con equipos que no se conocen entre sí?',
-    a: 'Sí. De hecho funciona especialmente bien en equipos nuevos, fusiones de áreas o procesos de transformación, porque acelera confianza, lenguaje común y coordinación en una sola sesión.',
+    q: "¿Funciona con equipos que no se conocen entre sí?",
+    a: "Sí. De hecho funciona especialmente bien en equipos nuevos, fusiones de áreas o procesos de transformación, porque acelera confianza, lenguaje común y coordinación en una sola sesión.",
   },
   {
-    q: '¿Qué tan físico es? ¿Hay requisitos especiales?',
-    a: 'Es una actividad de mesa, no deportiva. Cualquier persona puede participar. Si hay alguien con movilidad reducida u otra consideración, lo ajustamos sin problema.',
+    q: "¿Qué tan físico es? ¿Hay requisitos especiales?",
+    a: "Es una actividad de mesa, no deportiva. Cualquier persona puede participar. Si hay alguien con movilidad reducida u otra consideración, lo ajustamos sin problema.",
   },
   {
-    q: '¿En qué ciudades lo hacen?',
-    a: 'Principalmente en Chile (Santiago, regiones y faenas mineras). También hemos realizado el taller en Perú y podemos evaluar otros países de la región si la logística lo permite.',
+    q: "¿En qué ciudades lo hacen?",
+    a: "Principalmente en Chile (Santiago, regiones y faenas mineras). También hemos realizado el taller en Perú y podemos evaluar otros países de la región si la logística lo permite.",
   },
   {
-    q: '¿Qué se llevan los participantes al final?',
-    a: 'Una experiencia memorable, un lenguaje común sobre liderazgo y ejecución, y un informe con los patrones observados por el facilitador durante la sesión, útil para conversaciones posteriores del equipo.',
+    q: "¿Qué se llevan los participantes al final?",
+    a: "Una experiencia memorable, un lenguaje común sobre liderazgo y ejecución, y un reporte con los patrones observados por el facilitador y su equipo durante la sesión, útil para conversaciones y seguimientosposteriores.",
   },
 ];
 ---
@@ -31,21 +31,36 @@ const faqs = [
   <div class="shell">
     <div class="section-intro faq-intro reveal">
       <span class="eyebrow">Preguntas frecuentes</span>
-      <h2 class="section-title">Lo que suelen preguntarnos antes de agendar.</h2>
+      <h2 class="section-title">
+        Lo que suelen preguntarnos antes de agendar.
+      </h2>
     </div>
 
     <div class="faq-list reveal">
-      {faqs.map((item, index) => (
-        <details class="faq-item" open={index === 0}>
-          <summary>
-            <span>{item.q}</span>
-            <svg class="faq-chevron" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <polyline points="6 9 12 15 18 9" />
-            </svg>
-          </summary>
-          <p>{item.a}</p>
-        </details>
-      ))}
+      {
+        faqs.map((item, index) => (
+          <details class="faq-item" open={index === 0}>
+            <summary>
+              <span>{item.q}</span>
+              <svg
+                class="faq-chevron"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -55,14 +70,16 @@ const faqs = [
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.12 }
+    { threshold: 0.12 },
   );
-  document.querySelectorAll('#faq .reveal').forEach((el) => observer.observe(el));
+  document
+    .querySelectorAll("#faq .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>

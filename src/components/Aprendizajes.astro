@@ -1,34 +1,34 @@
 ---
-import { Target, Users, MessageCircle, Zap } from '@lucide/astro';
+import { Target, Users, MessageCircle, Zap } from "@lucide/astro";
 
 const items = [
   {
     Icon: Target,
-    number: '01',
-    badge: 'Alineamiento',
-    title: 'Objetivos que todos entienden — y todos cumplen',
-    desc: 'Traducir una meta ambigua en acción coordinada es la diferencia entre un equipo promedio y uno extraordinario. Aquí se practica en tiempo real, con consecuencias reales.',
+    number: "01",
+    badge: "Alineamiento",
+    title: "Objetivos que todos entienden — y todos cumplen",
+    desc: "Traducir una meta ambigua en acción coordinada es la diferencia entre un equipo promedio y uno extraordinario. Aquí se practica en tiempo real, con consecuencias reales.",
   },
   {
     Icon: Users,
-    number: '02',
-    badge: 'Coordinación',
-    title: 'Colaboración bajo presión, sin caos',
-    desc: 'Recursos limitados, plazos ajustados, múltiples frentes. La experiencia revela quién conecta con quién y cómo distribuir esfuerzos sin perder calidad ni ritmo.',
+    number: "02",
+    badge: "Coordinación",
+    title: "Colaboración bajo presión, sin caos",
+    desc: "Recursos limitados, plazos ajustados, múltiples frentes. La experiencia revela quién conecta con quién y cómo distribuir esfuerzos sin perder calidad ni ritmo.",
   },
   {
     Icon: MessageCircle,
-    number: '03',
-    badge: 'Comunicación',
-    title: 'Conversaciones que mueven el proyecto',
-    desc: 'La ambigüedad cuesta metros de puente. El equipo instala un lenguaje preciso, de alta cadencia y sin ruido — el mismo que necesita en cualquier proyecto crítico.',
+    number: "03",
+    badge: "Comunicación",
+    title: "Conversaciones que mueven el proyecto",
+    desc: "La ambigüedad cuesta metros de puente. El equipo instala un lenguaje preciso, de alta cadencia y sin ruido — el mismo que se necesita en cualquier proyecto crítico.",
   },
   {
     Icon: Zap,
-    number: '04',
-    badge: 'Confianza',
-    title: 'La certeza de que lo imposible es alcanzable',
-    desc: 'Cuando 35 personas se alinean y ejecutan, construyen 14 metros en 90 minutos. Esa certeza opera mucho después de que el taller termina.',
+    number: "04",
+    badge: "Confianza",
+    title: "La certeza de que lo imposible es alcanzable",
+    desc: "Cuando 35 personas se alinean y ejecutan, construyen 14 metros de puente en 90 minutos. Esa certeza opera mucho después de que el taller termina.",
   },
 ];
 ---
@@ -37,26 +37,38 @@ const items = [
   <div class="shell">
     <div class="section-intro reveal">
       <span class="eyebrow">Lo que se lleva tu equipo</span>
-      <h2 class="section-title">4 habilidades que solo la presión real enseña.</h2>
-      <p class="section-copy">Ningún PowerPoint instala esto. Son habilidades que emergen cuando hay urgencia, consecuencias y un equipo real trabajando junto.</p>
+      <h2 class="section-title">
+        4 habilidades que solo la presión real enseña.
+      </h2>
+      <p class="section-copy">
+        Ningún PowerPoint instala esto. Son habilidades que emergen cuando hay
+        urgencia, consecuencias y un equipo real trabajando junto.
+      </p>
     </div>
 
     <div class="ap-grid">
-      {items.map((item, index) => (
-        <article class="ap-card reveal" style={`transition-delay: ${index * 100}ms`}>
-          <span class="ap-bg-number" aria-hidden="true">{item.number}</span>
-          <div class="ap-top">
-            <div class="ap-icon">
-              <item.Icon size={22} aria-hidden="true" />
+      {
+        items.map((item, index) => (
+          <article
+            class="ap-card reveal"
+            style={`transition-delay: ${index * 100}ms`}
+          >
+            <span class="ap-bg-number" aria-hidden="true">
+              {item.number}
+            </span>
+            <div class="ap-top">
+              <div class="ap-icon">
+                <item.Icon size={22} aria-hidden="true" />
+              </div>
+              <span class="ap-badge">{item.badge}</span>
             </div>
-            <span class="ap-badge">{item.badge}</span>
-          </div>
-          <div class="ap-body">
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
-          </div>
-        </article>
-      ))}
+            <div class="ap-body">
+              <h3>{item.title}</h3>
+              <p>{item.desc}</p>
+            </div>
+          </article>
+        ))
+      }
     </div>
 
     <div class="ap-footer reveal">
@@ -71,15 +83,17 @@ const items = [
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.12 }
+    { threshold: 0.12 },
   );
 
-  document.querySelectorAll('#aprendizajes .reveal').forEach((el) => observer.observe(el));
+  document
+    .querySelectorAll("#aprendizajes .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>
@@ -91,12 +105,20 @@ const items = [
   }
 
   .aprendizajes::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 70% 60% at 80% 20%, rgba(217, 109, 63, 0.12), transparent),
-      radial-gradient(ellipse 50% 40% at 10% 80%, rgba(62, 92, 118, 0.25), transparent);
+      radial-gradient(
+        ellipse 70% 60% at 80% 20%,
+        rgba(217, 109, 63, 0.12),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 50% 40% at 10% 80%,
+        rgba(62, 92, 118, 0.25),
+        transparent
+      );
     pointer-events: none;
   }
 
@@ -140,7 +162,7 @@ const items = [
 
   /* Accent bar on hover */
   .ap-card::after {
-    content: '';
+    content: "";
     position: absolute;
     left: 0;
     top: 0;
@@ -193,7 +215,9 @@ const items = [
     background: rgba(217, 109, 63, 0.15);
     color: var(--color-accent);
     border: 1px solid rgba(217, 109, 63, 0.25);
-    transition: background 0.3s ease, border-color 0.3s ease;
+    transition:
+      background 0.3s ease,
+      border-color 0.3s ease;
   }
 
   .ap-card:hover .ap-icon {
@@ -252,7 +276,9 @@ const items = [
     text-decoration: none;
     border-bottom: 1px solid rgba(217, 109, 63, 0.4);
     padding-bottom: 1px;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition:
+      border-color 0.2s ease,
+      color 0.2s ease;
   }
 
   .ap-cta-link:hover {

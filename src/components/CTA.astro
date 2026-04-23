@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <section class="section cta" id="agendar">
@@ -7,12 +8,14 @@
       <span class="eyebrow">Agenda una reunión</span>
       <h2 class="section-title">Veamos si COMBRIDGE es para tu equipo.</h2>
       <p class="section-copy">
-        Revisamos contexto y objetivos. Si hay buen encaje, saldrás con una recomendación
-        concreta de formato para avanzar.
+        Revisamos contexto y objetivos. Si hay buen encaje, saldrás con una
+        recomendación concreta de formato para avanzar.
       </p>
 
       <p class="cta-contact">
-        ¿Prefieres escribirnos? <a href="mailto:contacto@comtraining.cl">contacto@comtraining.cl</a>
+        ¿Prefieres escribirnos? <a href="mailto:info@comtraining.cl"
+          >info@comtraining.cl</a
+        >
       </p>
     </div>
 
@@ -23,8 +26,7 @@
         loading="lazy"
         allow="camera; microphone"
         class="cta-frame"
-        style="width:100%;border:none;background:transparent;"
-      ></iframe>
+        style="width:100%;border:none;background:transparent;"></iframe>
     </div>
   </div>
 </section>
@@ -34,22 +36,28 @@
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
+          entry.target.classList.add("visible");
           observer.unobserve(entry.target);
         }
       });
     },
-    { threshold: 0.16 }
+    { threshold: 0.16 },
   );
 
-  document.querySelectorAll('#agendar .reveal').forEach((el) => observer.observe(el));
+  document
+    .querySelectorAll("#agendar .reveal")
+    .forEach((el) => observer.observe(el));
 </script>
 
 <style>
   .cta {
     color: #fff;
     background:
-      radial-gradient(circle at top left, rgba(217, 109, 63, 0.18), transparent 28%),
+      radial-gradient(
+        circle at top left,
+        rgba(217, 109, 63, 0.18),
+        transparent 28%
+      ),
       linear-gradient(180deg, #14324a 0%, #0b1c2d 100%);
   }
 
@@ -84,7 +92,7 @@
   }
 
   .cta-highlights span::before {
-    content: '';
+    content: "";
     width: 0.72rem;
     height: 0.72rem;
     border-radius: 999px;
