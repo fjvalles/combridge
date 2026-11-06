@@ -20,16 +20,82 @@
     </div>
 
     <div class="cta-embed reveal">
-      <iframe
-        src="https://cal.com/fjvalles?embed=true&theme=light&brandColor=%2314324A"
-        title="Agendar reunión con Francisco Vallés"
-        loading="lazy"
-        allow="camera; microphone"
+      <div
+        id="cal-embed"
         class="cta-frame"
-        style="width:100%;border:none;background:transparent;"></iframe>
+        style="width:100%;overflow:auto;"
+        role="region"
+        aria-label="Agendar reunión con Francisco Vallés"></div>
     </div>
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    const container = document.getElementById("cal-embed");
+    if (!container) return;
+
+    function loadCal() {
+      // Snippet oficial de Cal.com (@calcom/embed-snippet)
+      (function (C, A, L) {
+        let p = function (a, ar) { a.q.push(ar); };
+        let d = C.document;
+        C.Cal = C.Cal || function () {
+          let cal = C.Cal;
+          let ar = arguments;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement("script")).src = A;
+            cal.loaded = true;
+          }
+          if (ar[0] === L) {
+            const api = function () { p(api, arguments); };
+            const namespace = ar[1];
+            api.q = api.q || [];
+            if (typeof namespace === "string") {
+              cal.ns[namespace] = cal.ns[namespace] || api;
+              p(cal.ns[namespace], ar);
+              p(cal, ["initNamespace", namespace]);
+            } else p(cal, ar);
+            return;
+          }
+          p(cal, ar);
+        };
+      })(window, "https://app.cal.com/embed/embed.js", "init");
+
+      Cal("init", { origin: "https://app.cal.com" });
+      Cal("inline", {
+        elementOrSelector: "#cal-embed",
+        calLink: "fjvalles",
+        config: { theme: "light" },
+      });
+      Cal("ui", { cssVarsPerTheme: { light: { "cal-brand": "#14324A" } } });
+
+      // Conversión real: la reunión quedó agendada
+      Cal("on", {
+        action: "bookingSuccessfulV2",
+        callback: function () {
+          if (typeof window.gtag === "function") {
+            window.gtag("event", "reunion_agendada", { event_category: "cta" });
+          }
+        },
+      });
+    }
+
+    // Carga diferida: mantiene el comportamiento del loading="lazy" del iframe
+    const calObserver = new IntersectionObserver(
+      function (entries, obs) {
+        if (entries.some(function (e) { return e.isIntersecting; })) {
+          obs.disconnect();
+          loadCal();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    calObserver.observe(container);
+  })();
+</script>
 
 <script>
   const observer = new IntersectionObserver(
