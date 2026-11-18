@@ -42,13 +42,13 @@ Basada en el brochure existente de Comtraining:
 
 ## Secciones de la landing (orden)
 1. **Hero** — Imagen del puente real, título "COMBRIDGE", subtítulo de valor, CTA "Agendar reunión"
-2. **Números que impactan** — 14m / 9.000 piezas / 90 min / 35 personas (grid de 4)
+2. **Números que impactan** — 14m / 9.000 piezas / 90 min / 45 personas (grid de 4)
 3. **La experiencia** — Copy emocional + fotos del equipo trabajando
 4. **4 aprendizajes clave** — Cards con los objetivos del taller
 5. **¿Para quién es?** — 3 perfiles: líderes, equipos de proyecto, organizaciones en transformación
 6. **Industrias donde funciona** — Iconos de minería, telecom, energía, tecnología, financiera, retail
 7. **El profesor** — Francisco Vallés con credenciales resumidas
-8. **Logística** — 4h / presencial / hasta 35 personas / in company
+8. **Logística** — 4h / presencial / hasta 45 personas / in company
 9. **CTA final con Cal.com embebido** (`fjvalles`)
 10. **Footer** con enlace a comtraining.cl, redes sociales, mail
 
@@ -64,7 +64,7 @@ Basada en el brochure existente de Comtraining:
 - **14 metros** de puente construido
 - **9.000 piezas** ensambladas
 - **90 minutos** de ejecución
-- **35 personas** máximo por taller
+- **45 personas** máximo por taller
 
 ### Aprendizajes clave (cards)
 1. **Definir y lograr objetivos claros** en trabajo de equipo
@@ -78,7 +78,7 @@ Francisco Vallés. Consultor y coach senior con más de 25 años de experiencia.
 ### Logística
 - Duración: 4 horas
 - Modalidad: presencial
-- Capacidad: hasta 35 personas
+- Capacidad: hasta 45 personas
 - Modelo: in-company (vamos donde tu equipo esté)
 
 ## Integración Cal.com — instrucciones específicas

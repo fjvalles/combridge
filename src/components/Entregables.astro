@@ -1,0 +1,184 @@
+---
+import { Video, ClipboardList, LockKeyhole } from "@lucide/astro";
+
+const entregables = [
+  {
+    Icon: Video,
+    badge: "Registro audiovisual",
+    title: "Acceso a videos",
+    desc: "Registro audiovisual de los distintos momentos y etapas del taller.",
+  },
+  {
+    Icon: ClipboardList,
+    badge: "Equipo",
+    title: "Reporte grupal de observación conductual",
+    desc: "Breve informe sobre las conductas grupales observadas durante la experiencia. Identificación de las principales fortalezas del equipo en ámbitos como liderazgo, comunicación, colaboración y toma de decisiones.",
+  },
+  {
+    Icon: LockKeyhole,
+    badge: "Confidencial",
+    title: "Reporte individual confidencial",
+    desc: "Informe personalizado sobre las fortalezas y oportunidades de desarrollo observadas en cada alumno. Este documento será estrictamente confidencial, de uso exclusivo del alumno, no será compartido con terceros y se enviará directamente a su correo electrónico o WhatsApp.",
+  },
+];
+---
+
+<section class="section entregables" id="entregables">
+  <div class="shell">
+    <div class="section-intro reveal">
+      <span class="eyebrow">Qué incluye</span>
+      <h2 class="section-title">Entregables del taller COMBRIDGE</h2>
+    </div>
+
+    <div class="ent-grid">
+      {
+        entregables.map((item, index) => (
+          <article
+            class="ent-card reveal"
+            style={`transition-delay: ${index * 100}ms`}
+          >
+            <div class="ent-top">
+              <div class="ent-icon">
+                <item.Icon size={24} aria-hidden="true" />
+              </div>
+              <span class="ent-badge">{item.badge}</span>
+            </div>
+            <h3>{item.title}</h3>
+            <p>{item.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <p class="ent-closing reveal">
+      <strong>COMBRIDGE</strong> va más allá de una experiencia de aprendizaje en
+      equipo. Incorpora una mirada profesional sobre los comportamientos
+      individuales y grupales, transformando la experiencia en una oportunidad
+      concreta de autoconocimiento, identificación de fortalezas y desarrollo
+      profesional. Así, cada alumno no solo participa en un desafío colectivo,
+      sino que también recibe información valiosa para potenciar su desempeño
+      futuro como líder y gestor de proyectos.
+    </p>
+  </div>
+</section>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 },
+  );
+
+  document
+    .querySelectorAll("#entregables .reveal")
+    .forEach((el) => observer.observe(el));
+</script>
+
+<style>
+  .entregables :global(.section-intro) {
+    margin-bottom: 2rem;
+  }
+
+  .ent-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .ent-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.7rem;
+    border: 1px solid rgba(25, 48, 66, 0.1);
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.72)),
+      rgba(255, 255, 255, 0.76);
+    box-shadow:
+      0 20px 50px rgba(17, 31, 44, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  }
+
+  .ent-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .ent-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 18px;
+    background: rgba(217, 109, 63, 0.14);
+    color: #c96c3d;
+    border: 1px solid rgba(217, 109, 63, 0.18);
+  }
+
+  .ent-badge {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(25, 48, 66, 0.6);
+    border: 1px solid rgba(25, 48, 66, 0.14);
+    padding: 0.24rem 0.58rem;
+    border-radius: 999px;
+  }
+
+  .ent-card h3 {
+    margin: 1.2rem 0 0;
+    font-family: var(--font-display);
+    font-size: 1.12rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    color: #193042;
+  }
+
+  .ent-card p {
+    margin: 0.85rem 0 0;
+    color: rgba(25, 48, 66, 0.72);
+    font-size: 0.95rem;
+    line-height: 1.75;
+  }
+
+  .ent-closing {
+    margin: 1.5rem 0 0;
+    padding: 1.5rem 1.7rem;
+    border-left: 3px solid var(--color-accent);
+    border-radius: 0 24px 24px 0;
+    background: rgba(20, 50, 74, 0.05);
+    color: var(--color-text);
+    font-size: 1.02rem;
+    line-height: 1.8;
+  }
+
+  .ent-closing strong {
+    color: var(--color-brand);
+  }
+
+  @media (max-width: 960px) {
+    .ent-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .ent-card {
+      padding: 1.2rem;
+    }
+
+    .ent-closing {
+      padding: 1.2rem;
+    }
+  }
+</style>
